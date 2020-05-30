@@ -1,16 +1,19 @@
 {
-  "name": "04-admin-foodfy",
+  "name": "foodfy",
   "version": "1.0.0",
-  "description": "",
+  "description": "aplicação web completa de gerenciamento de receitas.",
   "main": "server.js",
+  "author": "Rafael Martins",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/martins-rafael/foodfy"
+  },
   "scripts": {
     "start": "npm-run-all -p nodemon browsersync",
     "nodemon": "nodemon server.js",
     "browsersync": "browser-sync start --proxy http://localhost:3000 --files 'public, views'"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
     "express": "^4.17.1",
     "method-override": "^3.0.0",
