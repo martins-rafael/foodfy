@@ -18,17 +18,21 @@
 
 ## Tópicos 
 
-- [Sobre o Foodfy](#sobre-o-foodfy)
-- [Funcionalidades](#funcionalidades)
-- [Tecnologias](#tecnologias)
-- [Instalação e uso](#instalação-e-uso)
-- [Licença](#licença)
+[Sobre o Foodfy](#sobre-o-foodfy)
+
+[Funcionalidades](#funcionalidades)
+
+[Tecnologias](#tecnologias)
+
+[Instalação e uso](#instalação-e-uso)
+
+[Licença](#licença)
 
 <br>
 
 ## Sobre o Foodfy
 
-O Foodfy é uma aplicação web completa de gerenciamento de receitas, desenvolvida durante o bootcamp Launchbase da [Rocketseat](https://rocketseat.com.br/).
+O Foodfy é uma aplicação web completa de gerenciamento de receitas, desenvolvida durante o bootcamp LaunchBase da [Rocketseat](https://rocketseat.com.br/).
 
 <p align="center">
   <img src=".github/main.gif" alt="página principal">
@@ -43,14 +47,13 @@ O Foodfy é uma aplicação web completa de gerenciamento de receitas, desenvolv
 ## Funcionalidades
 
 - [X] Explore variados tipos de receitas.
-
 - [X] Crie, visualize, edite e apague receitas.
 
 <br>
 
 ## Tecnologias
 
-As seguintes tecnologias foram utilizadas do desenvolvimento do projeto:
+As seguintes tecnologias foram utilizadas no desenvolvimento do projeto:
 
 - [HTML](https://devdocs.io/html/)
 - [CSS](https://devdocs.io/css/)
