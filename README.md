@@ -14,7 +14,7 @@
     <img src="https://img.shields.io/badge/status-EM%20DESENVOLVIMENTO-6558C3?style=flat-square">
 </p>
 
-<img align="right" src=".github/chef.png?raw=true" height="280">
+<img align="right" src=".github/chef.png?raw=true" height="240">
 
 ## Tópicos 
 
@@ -42,15 +42,15 @@ O Foodfy é uma aplicação web completa de gerenciamento de receitas, desenvolv
 
 ## Funcionalidades
 
-Explore variados tipos de receitas.
+- [X] Explore variados tipos de receitas.
 
-Crie, visualize, edite e apague receitas.
+- [X] Crie, visualize, edite e apague receitas.
 
 <br>
 
 ## Tecnologias
 
-As seguintes tecnologias foram utilizadas do desenvolvimento do projeto
+As seguintes tecnologias foram utilizadas do desenvolvimento do projeto:
 
 - [HTML](https://devdocs.io/html/)
 - [CSS](https://devdocs.io/css/)
@@ -65,7 +65,7 @@ As seguintes tecnologias foram utilizadas do desenvolvimento do projeto
 
 Para rodar a aplicação, você precisa ter o [Node](https://nodejs.org/en/) instalado em sua máquina e seguir os passos abaixo:
 
-1) Abra um terminal e copie este repositório com 
+1) Abra um terminal e copie este repositório com o comando
     ```
     git clone https://github.com/martins-rafael/foodfy.git
     ```
