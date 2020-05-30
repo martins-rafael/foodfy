@@ -35,7 +35,7 @@ O Foodfy é uma aplicação web completa de gerenciamento de receitas, desenvolv
 </p>
 
 <p align="center">
-  <img src=".github/admin.gif" alt="página admin">
+  <img src=".github/admin.png" alt="página admin">
 </p>
 
 <br>
