@@ -1,0 +1,29 @@
+{% extends 'layouts/admin.njk' %}
+
+{% block head %}
+    <title>Editar Chef | Foodfy</title>
+{% endblock %}
+
+{% block content %}
+    <section class="container">
+        <form action="/admin/chefs?_method=PUT" method="POST">
+            <div class="title">
+                <h2>Editar chef</h2>
+
+                <div>
+                    <button class="btn-delete" type="submit" form="form-delete">Deletar</button>
+                    <button type="submit">Salvar chef</button>
+                </div>
+            </div>
+
+            {% include "admin/chefs/fields.njk" %}
+
+            <input type="hidden" name="id" value={{chef.id}}>
+        </form>
+
+        <form id="form-delete" action="/admin/chefs?_method=DELETE" method="POST">
+            <div class="total-recipes" data-total={{chef.total_recipes}}></div>
+            <input type="hidden" name="id" value={{chef.id}}>
+        </form>
+    </section>
+{% endblock %}

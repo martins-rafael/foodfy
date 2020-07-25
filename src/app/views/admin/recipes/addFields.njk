@@ -1,0 +1,25 @@
+<script>
+    const addIngredient = document.querySelector('.add-ingredient');
+    const addStep = document.querySelector('.add-step');
+
+    function addField(idField, classField) {
+        const id = document.querySelector(idField);
+        const fieldContainer = document.querySelectorAll(classField);
+        const newField = fieldContainer[fieldContainer.length - 1].cloneNode(true);
+
+        if (newField.children[0].value == '') return false;
+
+        newField
+            .children[0]
+            .value = '';
+        id.appendChild(newField);
+    }
+
+    addIngredient.addEventListener('click', function () {
+        addField('#ingredients', '.ingredients');
+    });
+
+    addStep.addEventListener('click', function () {
+        addField('#step', '.steps');
+    });
+</script>

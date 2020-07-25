@@ -1,0 +1,59 @@
+{% extends 'layouts/admin.njk' %}
+
+{% block head %}
+    <title>Receita: {{recipe.title}} | Foodfy</title>
+{% endblock %}
+
+{% block content %}
+    <section class="selected container">
+            <div class="title">
+                <h2>Receita: {{recipe.title}}</h2>
+                <a class="btn" href="/admin/recipes/{{recipe.id}}/edit">Editar receita</a>
+            </div>
+
+            <img src="{{recipe.image}}" alt="imagem de {{recipe.title}}">
+
+            <div class="title">
+                <h1>{{recipe.title}}</h1>
+                <p>por {{recipe.chef_name}}</p>
+            </div>
+
+            <div class="recipe-wrapper">
+                <div class="title">
+                    <h2>Igredientes</h2>
+                </div>
+
+                <div class="content">
+                    <ul>
+                        {% for ingredient in recipe.ingredients %}
+                            <li>{{ingredient}}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+
+            <div class="recipe-wrapper">
+                <div class="title">
+                    <h2>Modo de preparo</h2>
+                </div>
+
+                <div class="content">
+                    <ul>
+                        {% for preparation in recipe.preparation %}
+                            <li>{{preparation}}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+
+            <div class="recipe-wrapper">
+                <div class="title">
+                    <h2>Informações adicionais</h2>
+                </div>
+
+                <div class="content">
+                    {{recipe.information}}
+                </div>
+            </div>
+    </section>
+{% endblock %}

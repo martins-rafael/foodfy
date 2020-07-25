@@ -32,14 +32,19 @@
 
 ## Sobre o Foodfy
 
-O Foodfy é uma aplicação web completa de gerenciamento de receitas, desenvolvida durante o bootcamp LaunchBase da [Rocketseat](https://rocketseat.com.br/).
+O Foodfy é uma aplicação web completa de gerenciamento de receitas, desenvolvida durante o bootcamp [LaunchBase](https://rocketseat.com.br/launchbase) da [Rocketseat](https://rocketseat.com.br/).
 
+### Main
 <p align="center">
   <img src=".github/main.gif" alt="página principal">
 </p>
 
+<br>
+
+### Admin
 <p align="center">
-  <img src=".github/admin.png" alt="página admin">
+  <img src=".github/admin_recipes.png" alt="página admin receitas">
+  <img src=".github/admin_chefs.png" alt="página admin chefs">
 </p>
 
 <br>
@@ -47,7 +52,10 @@ O Foodfy é uma aplicação web completa de gerenciamento de receitas, desenvolv
 ## Funcionalidades
 
 - [X] Explore variados tipos de receitas.
-- [X] Crie, visualize, edite e apague receitas.
+- [X] Criar, visualizar, editar e apagar receitas e chefs.
+- [X] Pesquisar receitas.
+- [X] Páginas dinâmicas com Nunjucks.
+- [X] Banco de dados PostgreSQL.
 
 <br>
 
@@ -61,12 +69,15 @@ As seguintes tecnologias foram utilizadas no desenvolvimento do projeto:
 - [Node](https://nodejs.org/en/)
 - [Express](https://expressjs.com/)
 - [Nunjucks](https://mozilla.github.io/nunjucks/)
+- [PostgreSQL](https://www.postgresql.org/)
 
 <br>
 
 ## Instalação e uso
 
-Para rodar a aplicação, você precisa ter o [Node](https://nodejs.org/en/) instalado em sua máquina e seguir os passos abaixo:
+Para rodar a aplicação, você precisa instalar o [Node](https://nodejs.org/en/) e o [Postgres](https://www.postgresql.org/).
+
+Siga os passos abaixo:
 
 1) Abra um terminal e copie este repositório com o comando
     ```
@@ -74,17 +85,36 @@ Para rodar a aplicação, você precisa ter o [Node](https://nodejs.org/en/) ins
     ```
     ou use a opção de download.
 
+<br>
+
 2) Entre na pasta com 
     ```
     cd foodfy
     ```
+
+<br>
 
 3) Instale as dependências
     ```
     npm install
     ```
 
-4) Rode a aplicação
+<br>
+
+4) Crie e importe o banco de dados
+    ```
+    psql -U postgres -c "CREATE DATABASE foodfy"
+    psql -U postgres -d foodfy <foodfy.sql
+    ```
+    Você também pode criar e importar manualmente o banco de dados usando o Postbird ou pgAdmin.
+    
+<br>
+
+5) Para configurar a conexão com o banco de dados, abra e edite o arquivo ```db.js``` dentro da pasta ```src/config``` com o seu user e password do Postgres.
+    
+    <br>
+
+6) Rode a aplicação
     ```
     npm start
     ```

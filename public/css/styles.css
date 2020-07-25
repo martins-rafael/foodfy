@@ -1,6 +1,6 @@
-/* ============
-==== GERAL ==== 
-============ */
+/* =============
+==== GLOBAL ==== 
+============= */
 
 @import url('https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap');
 :root {
@@ -13,13 +13,8 @@
 }
 
 body {
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
+    flex-direction: column;
     height: 100vh;
     font-family: 'Roboto', sans-serif;
     color: var(--default-black);
@@ -33,31 +28,69 @@ body {
 }
 
 header .container {
-    display: -ms-grid;
     display: grid;
-    -ms-grid-columns: 1fr 2fr;
-    grid-template-columns: 1fr 2fr;
-    padding: 40px;
-    -webkit-box-sizing: border-box;
-            box-sizing: border-box;
+    grid-template-columns: 92px 1fr 1fr;
+    align-items: center;
+    padding: 20px 0;
+    box-sizing: border-box;
 }
 
-header .img-wraper img {
+header .img-wrapper img {
     padding-top: 10px;
 }
 
 header .links ul {
-    display: -ms-grid;
     display: grid;
-    -ms-grid-columns: 1fr 4fr;
-    grid-template-columns: 1fr 4fr;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    max-width: 300px;
     list-style: none;
 }
 
-header .links ul li a {
+header .links a {
+    position: relative;
     font-size: 16px;
     text-decoration: none;
     color: var(--default-black);
+    transition: .2s;
+}
+
+.links a:hover {
+    font-weight: bold;
+}
+
+.links a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--default-black);
+    opacity: 0;
+    border-radius: 10px;
+    transition: all .2s ease;
+}
+
+.links a:hover::after {
+    opacity: 1;
+    bottom: -6px;
+}
+
+header .container .filter-form {
+    display: grid;
+    grid-template-columns: 248px 96px;
+    gap: 16px;
+    justify-self: end;
+}
+
+header .container .filter-form input {
+    margin: 0;
+}
+
+header .container .filter-form button {
+    align-self: center;
+    height: 40px;
 }
 
 header.header-admin {
@@ -65,11 +98,27 @@ header.header-admin {
 }
 
 header.header-admin .container {
+    grid-template-columns: 92px 1fr;
+    gap: 3.6%;
+    align-items: center;
     padding: 24px 0;
+}
+
+.header-admin .links ul {
+    grid-template-columns: 1fr 6fr;
+}
+
+.header-admin .links a {
+    text-transform: uppercase;
+    color: var(--light-gray);
 }
 
 .active {
     font-weight: bold;
+}
+
+.header-admin .links a.active {
+    color: var(--white-paper);
 }
 
 footer {
@@ -84,14 +133,12 @@ footer p {
     color: var(--light-gray);
 }
 
-/* ============
-==== index ==== 
-============ */
+/* =================
+==== MAIN INDEX ==== 
+================= */
 
 section.banner {
-    display: -ms-grid;
     display: grid;
-    -ms-grid-columns: 2fr 1fr;
     grid-template-columns: 2fr 1fr;
     padding-top: 60px;
     max-height: 366px;
@@ -109,11 +156,11 @@ section.banner {
 }
 
 section.most-popular {
-    margin-top: 56px;
+    margin-top: 40px;
 }
 
 /* =================
-==== about page ==== 
+==== ABOUT PAGE ==== 
 ================= */
 
 .about h1 {
@@ -132,13 +179,12 @@ section.most-popular {
 }
 
 /* ==============
-==== recipes ==== 
+==== RECIPES ==== 
 ============== */
 
-.recipe-container {
-    display: -ms-grid;
+.recipe-container,
+.recipe-container-adm {
     display: grid;
-    -ms-grid-columns: 1fr 20px 1fr 20px 1fr;
     grid-template-columns: 1fr 1fr 1fr;
     gap: 20px;
     margin-top: 24px;
@@ -152,65 +198,63 @@ section.most-popular {
     border-radius: 15px;
 }
 
-.recipe h3 {
+.recipe h3,
+.chef h3 {
     margin: 5px 10px;
     font-size: 18px;
     font-weight: normal;
 }
 
-.recipe p {
+.recipe p,
+.chef p {
     margin: 0 10px;
     font-size: 14px;
     color: var(--gray);
 }
 
 /* =============================
-==== individual recipe page ====
+==== INDIVIDUAL RECIPE PAGE ====
 ============================= */
 
-.recipe-selected {
+.selected {
     margin-bottom: 56px;
 }
 
-.recipe-selected img {
+.selected > img {
     margin-top: 20px;
     border-radius: 15px;
 }
 
-.recipe-selected .title {
+.selected .title {
     text-align: center;
 }
 
-.recipe-selected .title h1 {
+.selected .title h1 {
     margin-top: 56px;
     margin-bottom: 5px;
     font-size: 36px;
 }
 
-.recipe-selected .title p {
+.selected .title p {
     margin: 0;
     font-size: 20px;
     color: var(--gray);
 }
 
-.recipe-wraper {
+.recipe-wrapper {
     margin-top: 20px;
 }
 
-.recipe-wraper .title {
-    display: -webkit-box;
-    display: -ms-flexbox;
+.recipe-wrapper .title {
     display: flex;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
     align-items: center;
 }
 
-.recipe-wraper .title h2 {
+.recipe-wrapper .title h2 {
     margin-right: 8px;
 }
 
-.recipe-wraper p.hide {
+.recipe-wrapper p.hide {
     font-size: 12px;
     color: var(--light-gray);
     cursor: pointer;
@@ -235,46 +279,38 @@ section.most-popular {
     display: none;
 }
 
-/* ====================
-==== recipes admin ====
-==================== */
+/* =================
+==== ADMIN PAGE ====
+================= */
 
-.recipes-admin > .title,
+.admin > .title,
 form .title,
-.recipe-selected > .title:first-child {
-    display: -webkit-box;
-    display: -ms-flexbox;
+.selected > .title:first-child {
     display: flex;
-    -webkit-box-pack: justify;
-        -ms-flex-pack: justify;
-            justify-content: space-between;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
+    justify-content: space-between;
+    align-items: center;
     margin-top: 40px;
 }
 
-.recipes-admin .recipe-container {
-    -ms-grid-columns: 1fr 20px 1fr;
+.admin .recipe-container-adm {
     grid-template-columns: 1fr 1fr;
     gap: 20px;
 }
 
-.recipes-admin .recipe {
-    display: -ms-grid;
+.admin .recipe {
     display: grid;
-    -ms-grid-columns: 40% 8px 60%;
     grid-template-columns: 40% 60%;
     gap: 8px;
     cursor: default;
 }
 
-.recipes-admin .recipe img {
+.admin .recipe img {
     height: 80px;
     border-radius: 8px;
 }
 
-.recipes-admin .recipe a {
+.admin .recipe a,
+.admin .chef a {
     display: inline-block;
     margin: 10px;
     font-size: 14px;
@@ -290,17 +326,23 @@ button {
 form button,
 .btn {
     padding: 8px 20px;
-    height: 37px;
     font-weight: bold;
     color: var(--white-paper);
     background-color: var(--purple);
     border: 0;
     border-radius: 4px;
+    transition: .2s;
 }
 
-.btn a {
+a.btn {
+    box-sizing: border-box;
     text-decoration: none;
-    color: var(--white-paper);
+}
+
+form button:hover, 
+.btn:hover {
+    filter: brightness(1.03);
+    box-shadow: 0 2px 6px -1px var(--purple);
 }
 
 button.btn-delete {
@@ -308,8 +350,13 @@ button.btn-delete {
     background-color: #dc4747;
 }
 
+button.btn-delete:hover {
+    filter: brightness(1.03);
+    box-shadow: 0 2px 6px -1px #dc4747;
+}
+
 /* ============
-==== forms ====
+==== FORMS ====
 ============ */
 
 form .item {
@@ -324,15 +371,20 @@ form .item:last-of-type {
     font-weight: bold;
 }
 
-form input, form textarea {
-    -webkit-box-sizing: border-box;
-            box-sizing: border-box;
+form input, form textarea, form select {
+    box-sizing: border-box;
     margin: 10px 0;
     padding: 8px 24px;
     width: 100%;
     height: 40px;
     border: 1px solid #ddd;
     border-radius: 4px;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    box-shadow: 0px 0px 2px #ccc;
 }
 
 form textarea {
@@ -345,4 +397,42 @@ form .add {
     font-weight: bold;
     color: var(--purple);
     cursor: pointer;
+}
+
+.chef-container,
+.chef-container-admin {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 20px;
+    margin-top: 24px;
+}
+
+.chef-container .chef{
+    cursor: pointer;
+}
+
+.chef {
+    display: grid;
+    grid-template-columns: 30% 70%;
+    align-items: center;
+}
+
+.chef img {
+    width: 64px;
+    height: 64px;
+    object-fit: cover;
+    border-radius: 64px;
+}
+
+.chef a {
+    margin-top: 0;
+}
+
+.chef-img img {
+    display: block;
+    margin: 56px auto 0;
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 50%;
 }
