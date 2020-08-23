@@ -62,13 +62,13 @@ module.exports = {
             callback(results.rows[0]);
         });
     },
-    findBy(search, callback){
+    findBy(search, callback) {
         db.query(`
         SELECT recipes.*, chefs.name AS chef_name
         FROM recipes
         LEFT JOIN chefs ON (recipes.chef_id = chefs.id)
         WHERE recipes.title ILIKE '%${search}%'
-        ORDER BY title ASC`, function(err, results) {
+        ORDER BY title ASC`, function (err, results) {
             if (err) throw `Database error! ${err}`;
 
             callback(results.rows);
@@ -107,6 +107,39 @@ module.exports = {
             if (err) throw `Database error! ${err}`;
 
             callback();
+        });
+    },
+    paginate(params) {
+        let { filter, limit, offset, callback } = params;
+        let query = '',
+            filterQuery = '',
+            totalQuery = `(
+                SELECT count(*) FROM recipes
+            ) AS total`;
+
+        if (filter) {
+            filterQuery = `
+            WHERE recipes.title ILIKE '%${filter}%'
+            `;
+
+            totalQuery = `(
+                SELECT count(*) FROM recipes
+                ${filterQuery}
+            ) AS total`;
+        }
+
+        query = `
+        SELECT recipes.*, ${totalQuery}
+        FROM recipes
+        ${filterQuery}
+        ORDER by title ASC
+        LIMIT $1 OFFSET $2
+        `;
+
+        db.query(query, [limit, offset], function (err, results) {
+            if(err) throw `Database error! ${err}`;
+
+            callback(results.rows);
         });
     }
 };

@@ -19,9 +19,27 @@ module.exports = {
         return res.render('main/about');
     },
     recipes(req, res) {
-        Recipe.all(function (recipes) {
-            return res.render('main/recipes', { recipes });
-        });
+        let { filter, page, limit } = req.query;
+
+        page = page || 1;
+        limit = limit || 6;
+        let offset = limit * (page - 1);
+
+        const params = {
+            filter,
+            page,
+            limit,
+            offset,
+            callback(recipes) {
+                const pagination = {
+                    total: Math.ceil(recipes[0].total / limit),
+                    page
+                };
+                return res.render('main/recipes', { recipes, filter, pagination });
+            }
+        };
+
+        Recipe.paginate(params);
     },
     showRecipe(req, res) {
         Recipe.find(req.params.id, function (recipe) {
