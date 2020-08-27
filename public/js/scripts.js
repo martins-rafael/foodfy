@@ -116,6 +116,14 @@ function createPagination(pagination) {
     }
 
     pagination.innerHTML = elements;
+    activePage(page);
+}
+
+function activePage(page) {
+    const pagesOfPagination = document.querySelectorAll('.pagination a');
+    pagesOfPagination.forEach(currentPage => {
+        if (Number(currentPage.innerHTML) == page) currentPage.classList.add('active');
+    });
 }
 
 const pagination = document.querySelector('.pagination');

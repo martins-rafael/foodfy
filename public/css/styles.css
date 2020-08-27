@@ -458,5 +458,7 @@ form .add {
 }
 
 .container .pagination a:hover {
-    font-weight: bold;
+    /* color: var(--color-gray); */
+    font-weight: bold ;
+    border-bottom: 1px solid var(--color-default-black);
 }
