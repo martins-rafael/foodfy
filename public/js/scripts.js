@@ -99,7 +99,7 @@ function paginate(selectedPage, totalPages) {
 function createPagination(pagination) {
     const page = +pagination.dataset.page;
     const total = +pagination.dataset.total;
-    const filter = +pagination.dataset.flter;
+    const search = pagination.dataset.filter;
     const pages = paginate(page, total);
     let elements = '';
 
@@ -107,8 +107,8 @@ function createPagination(pagination) {
         if (String(page).includes('...')) {
             elements += `<span>${page}</span>`;
         } else {
-            if (filter) {
-                elements += `<a href="?page=${page}%filter=${filter}">${page}</a>`;
+            if (search) {
+                elements += `<a href="?page=${page}&search=${search}">${page}</a>`;
             } else {
                 elements += `<a href="?page=${page}">${page}</a>`;
             }

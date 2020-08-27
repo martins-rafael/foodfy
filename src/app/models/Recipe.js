@@ -109,17 +109,17 @@ module.exports = {
             callback();
         });
     },
-    paginate(params) {
-        let { filter, limit, offset, callback } = params;
+    recipes(params) {
+        let { search, limit, offset, callback } = params;
         let query = '',
             filterQuery = '',
             totalQuery = `(
                 SELECT count(*) FROM recipes
             ) AS total`;
 
-        if (filter) {
+        if (search) {
             filterQuery = `
-            WHERE recipes.title ILIKE '%${filter}%'
+            WHERE recipes.title ILIKE '%${search}%'
             `;
 
             totalQuery = `(
@@ -129,8 +129,9 @@ module.exports = {
         }
 
         query = `
-        SELECT recipes.*, ${totalQuery}
+        SELECT recipes.*, ${totalQuery}, chefs.name AS chef_name
         FROM recipes
+        LEFT JOIN chefs ON (recipes.chef_id = chefs.id)
         ${filterQuery}
         ORDER by title ASC
         LIMIT $1 OFFSET $2

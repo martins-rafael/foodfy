@@ -3,43 +3,47 @@ const Chef = require('../models/Chef');
 
 module.exports = {
     index(req, res) {
-        const { search } = req.query;
-
-        if (search) {
-            Recipe.findBy(search, function (recipes) {
-                return res.render('main/result', { search, recipes });
-            });
-        } else {
-            Recipe.all(function (recipes) {
-                return res.render('main/index', { recipes });
-            });
-        }
+        Recipe.all(function (recipes) {
+            return res.render('main/index', { recipes });
+        });
     },
     about(req, res) {
         return res.render('main/about');
     },
     recipes(req, res) {
-        let { filter, page, limit } = req.query;
+        let { search, page, limit } = req.query;
 
         page = page || 1;
         limit = limit || 6;
         let offset = limit * (page - 1);
 
         const params = {
-            filter,
+            search,
             page,
             limit,
             offset,
             callback(recipes) {
-                const pagination = {
-                    total: Math.ceil(recipes[0].total / limit),
-                    page
-                };
-                return res.render('main/recipes', { recipes, filter, pagination });
+                let pagination = '';
+
+                if (recipes.length == 0) {
+                    pagination = {
+                        total: 1,
+                        page
+                    };
+                } else {
+                    pagination = {
+                        total: Math.ceil(recipes[0].total / limit),
+                        page
+                    };
+                }
+
+                if (search) return res.render('main/result', { recipes, search, pagination });
+
+                return res.render('main/recipes', { recipes, pagination });
             }
         };
 
-        Recipe.paginate(params);
+        Recipe.recipes(params);
     },
     showRecipe(req, res) {
         Recipe.find(req.params.id, function (recipe) {

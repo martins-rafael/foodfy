@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block search %}
-    <form class="filter-form" action="/" method="GET">
+    <form class="filter-form" action="/recipes" method="GET">
         <input type="text" name="search" value="{{search}}" placeholder="Buscar uma receita">
         <button type="submit">Buscar</button>
     </form>
@@ -24,10 +24,11 @@
             {% endfor %}
         </div>
 
-        <div class="pagination"
-            data-page={{pagination.page}}
-            data-total={{pagination.total}}
-            data-filter={{filter}}
-        ></div>
+        {% if pagination.total > 1 %}
+            <div class="pagination"
+                data-page={{pagination}}
+                data-total={{pagination.total}}
+            ></div>
+        {% endif %}
     </section>
 {% endblock %}

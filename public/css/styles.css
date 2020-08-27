@@ -187,8 +187,7 @@ section.most-popular {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     gap: 20px;
-    margin-top: 24px;
-    margin-bottom: 56px;
+    margin: 24px 0;
     cursor: pointer;
 }
 
@@ -399,6 +398,10 @@ form .add {
     cursor: pointer;
 }
 
+/* ============
+==== CHEFS ==== 
+============ */
+
 .chef-container,
 .chef-container-admin {
     display: grid;
@@ -435,4 +438,25 @@ form .add {
     height: 200px;
     object-fit: cover;
     border-radius: 50%;
+}
+
+/* =================
+==== PAGINATION ==== 
+================= */
+
+.container .pagination {
+    margin: 16px 0;
+    text-align: center;
+}
+
+.container .pagination a,
+.container .pagination span {
+    margin-right: 16px;
+    text-decoration: none;
+    color: var(--color-default-black);
+    transition: .2s;
+}
+
+.container .pagination a:hover {
+    font-weight: bold;
 }
