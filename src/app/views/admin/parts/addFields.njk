@@ -15,11 +15,6 @@
         id.appendChild(newField);
     }
 
-    addIngredient.addEventListener('click', function () {
-        addField('#ingredients', '.ingredients');
-    });
-
-    addStep.addEventListener('click', function () {
-        addField('#step', '.steps');
-    });
+    addIngredient.addEventListener('click', () => addField('#ingredients', '.ingredients'));
+    addStep.addEventListener('click', () => addField('#step', '.steps'));
 </script>

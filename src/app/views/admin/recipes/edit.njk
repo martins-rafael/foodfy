@@ -16,7 +16,7 @@
                 </div>
             </div>
 
-            {% include "admin/recipes/fields.njk" %}
+            {% include "admin/parts/recipes-fields.njk" %}
 
             <input type="hidden" name="id" value={{recipe.id}}>
         </form>
@@ -26,5 +26,5 @@
         </form>
     </section>
 
-    {% include "admin/recipes/addFields.njk" %}
+    {% include "admin/parts/addFields.njk" %}
 {% endblock %}

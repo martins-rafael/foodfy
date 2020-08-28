@@ -5,10 +5,7 @@
 {% endblock %}
 
 {% block search %}
-    <form class="filter-form" action="/" method="GET">
-        <input type="text" name="search" value="{{search}}" placeholder="Buscar uma receita">
-        <button type="submit">Buscar</button>
-    </form>
+    {% include "main/parts/recipe-search.njk" %}
 {% endblock %}
 
 {% block content %}

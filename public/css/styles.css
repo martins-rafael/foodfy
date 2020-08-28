@@ -10,6 +10,9 @@
     --color-dark-gray: #444;
     --color-white-paper: #f5f5f5;
     --color-purple: #6558C3;
+    --color-purple-dark: #5449a3;
+    --color-danger-red: #dc4747;
+    --color-danger-red-dark: #c53e3e;
 }
 
 body {
@@ -340,18 +343,16 @@ a.btn {
 
 form button:hover, 
 .btn:hover {
-    filter: brightness(1.03);
-    box-shadow: 0 2px 6px -1px var(--color-purple);
+    background-color: var(--color-purple-dark);
 }
 
 button.btn-delete {
     margin-right: 8px;
-    background-color: #dc4747;
+    background-color: var(--color-danger-red);
 }
 
 button.btn-delete:hover {
-    filter: brightness(1.03);
-    box-shadow: 0 2px 6px -1px #dc4747;
+    background-color: var(--color-danger-red-dark);
 }
 
 /* ============

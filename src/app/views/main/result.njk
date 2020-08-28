@@ -5,32 +5,14 @@
 {% endblock %}
 
 {% block search %}
-    <form class="filter-form" action="/recipes" method="GET">
-        <input type="text" name="search" value="{{search}}" placeholder="Buscar uma receita">
-        <button type="submit">Buscar</button>
-    </form>
+    {% include "main/parts/recipe-search.njk" %}
 {% endblock %}
 
 {% block content %}
     <section class="container">
         <h2>Buscando por "{{search}}"</h2>
-
-        <div class="recipe-container">
-            {% for recipe in recipes %}
-                <div class="recipe" data-id={{recipe.id}}>
-                    <img src="{{recipe.image}}" alt="imagem de {{recipe.title}}">
-                    <h3>{{recipe.title}}</h3>
-                    <p>por {{recipe.chef_name}}</p>
-                </div>
-            {% endfor %}
-        </div>
-
-        {% if pagination.total > 1 %}
-            <div class="pagination"
-                data-page={{pagination.page}}
-                data-total={{pagination.total}}
-                data-filter={{search}}
-            ></div>
-        {% endif %}
+        
+        {% include "main/parts/recipes.njk" %} 
+        {% include "main/parts/pagination.njk" %}
     </section>
 {% endblock %}

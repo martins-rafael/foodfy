@@ -4,6 +4,7 @@ const Chef = require('../models/Chef');
 module.exports = {
     index(req, res) {
         Recipe.all(function (recipes) {
+            recipes.splice(6, recipes.length);
             return res.render('main/index', { recipes });
         });
     },
