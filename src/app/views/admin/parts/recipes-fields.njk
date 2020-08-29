@@ -1,14 +1,29 @@
 <div class="item">
-    <div>Nome da receita</div>
-    <div>
-        <input type="text" name="title" value="{{recipe.title}}">
+    <div>Imagens da receita (até 05 fotos)</div>
+    <div id="photos-container">
+        <div id="photos-upload">
+            <input
+                id="photos-input"
+                type="file"
+                name="photos"
+                multiple
+                accept="image/*"
+                onchange="PhotosUpload.handleFileInput(event, 5)"
+            >
+            <i class="material-icons">add</i>
+        </div>
+        <div id="photos-preview"></div>
     </div>
 </div>
 
 <div class="item">
-    <div>Imagem da receita</div>
+    <div>Nome da receita</div>
     <div>
-        <input type="text" name="image" value="{{recipe.image}}">
+        <input
+            type="text"
+            name="title"
+            value="{{recipe.title}}"
+        >
     </div>
 </div>
 
@@ -18,9 +33,12 @@
         <select name="chef">
             <option disabled selected value>Selecione um chef</option>
             {% for chef in chefsOptions %}
-                <option value="{{chef.id}}" {% if recipe.chef_id == chef.id %} selected="selected" {% endif %}>
-                    {{chef.name}}
-                </option>
+                <option
+                    value="{{chef.id}}"
+                    {% if recipe.chef_id == chef.id %}
+                        selected="selected"
+                    {% endif %}
+                >{{chef.name}}</option>
             {% endfor %}
         </select>
     </div>
@@ -30,11 +48,18 @@
     <div>Igredientes</div>
     {% for ingredient in recipe.ingredients %}
         <div class="ingredients">
-            <input type="text" name="ingredients[]" value="{{ingredient}}">
+            <input
+                type="text"
+                name="ingredients[]"
+                value="{{ingredient}}"
+            >
         </div>
     {% else %}
         <div class="ingredients">
-            <input type="text" name="ingredients[]">
+            <input
+                type="text"
+                name="ingredients[]"
+            >
         </div>
     {% endfor %}
 </div>
@@ -45,11 +70,18 @@
     <div>Modo de preparo</div>
     {% for preparation in recipe.preparation %}
         <div class="steps">
-            <input type="text" name="preparation[]" value="{{preparation}}">
+            <input
+                type="text"
+                name="preparation[]"
+                value="{{preparation}}"
+            >
         </div>
     {% else %}
         <div class="steps">
-            <input type="text" name="preparation[]">
+            <input
+                type="text"
+                name="preparation[]"
+            >
         </div>
     {% endfor %}
 </div>

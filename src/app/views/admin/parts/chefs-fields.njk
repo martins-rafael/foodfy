@@ -7,7 +7,17 @@
 
 <div class="item">
     <div>Avatar</div>
-    <div>
-        <input type="text" name="avatar_url" value="{{chef.avatar_url}}">
+    <div id="photos-container">
+        <div id="photos-upload">
+            <input 
+                id="photos-input"
+                type="file"
+                name="photos"
+                accept="images/*"
+                onchange="PhotosUpload.handleFileInput(event, 1)"
+            >
+            <i class="material-icons">add</i>
+        </div>
+        <div id="photos-preview"></div>
     </div>
 </div>
