@@ -1,5 +1,5 @@
 const Chef = require('../models/Chef');
-const { recipes } = require('../models/Recipe');
+const File = require('../models/File');
 
 module.exports = {
     async index(req, res) {
@@ -23,7 +23,14 @@ module.exports = {
                 if (req.body[key] == '') res.send('Por favor, preencha todos os campos.');
             });
 
-            const results = await Chef.create(req.body);
+            if (req.files.length == 0)
+                return res.send('Por favor, envie uma imagem.');
+
+            let results = await File.create(req.files[0]);
+            const file_id = results.rows[0].id;
+
+            const data = {...req.body, file_id};
+            results = await Chef.create(data);
             const chefId = results.rows[0].id;
 
             return res.redirect(`/admin/chefs/${chefId}`);
