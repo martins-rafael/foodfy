@@ -12,7 +12,20 @@
             >
             <i class="material-icons">add</i>
         </div>
-        <div id="photos-preview"></div>
+        <div id="photos-preview">
+            {% if files %}
+                {% for image in files%}
+                    <div class="photo" id="{{image.file_id}}">
+                        <img src="{{image.src}}" alt="{{image.name}}">
+                        <i
+                            class="material-icons"
+                            onclick="PhotosUpload.removeOldPhoto(event)"
+                        >close</i>
+                    </div>
+                {% endfor %}
+                <input type="hidden" name="removed_files">
+            {% endif %}
+        </div>
     </div>
 </div>
 

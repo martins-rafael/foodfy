@@ -47,13 +47,13 @@ module.exports = {
         const query = `
         UPDATE chefs SET
             name=($1),
-            avatar_url=($2)
+            file_id=($2)
         WHERE id = $3
         `;
 
         const values = [
             data.name,
-            data.avatar_url,
+            data.file_id,
             data.id
         ];
 
@@ -61,5 +61,9 @@ module.exports = {
     },
     delete(id) {
         return db.query(`DELETE FROM chefs WHERE id = $1`, [id]);
+    },
+    file(id) {
+        return db.query(`
+        SELECT * FROM files WHERE id = $1`, [id]);
     }
 };

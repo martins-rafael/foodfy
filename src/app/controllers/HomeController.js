@@ -1,5 +1,6 @@
 const Recipe = require('../models/Recipe');
 const Chef = require('../models/Chef');
+const { files } = require('../models/Recipe');
 
 module.exports = {
     async index(req, res) {
@@ -81,7 +82,11 @@ module.exports = {
             results = await Chef.chefRecipes(req.params.id);
             const recipes = results.rows;
 
-            return res.render('main/chef', { chef, recipes });
+            results = await Chef.file(chef.file_id);
+            const file = { ...results.rows[0]};
+            file.src = `${req.protocol}://${req.headers.host}${file.path.replace('public', '')}`;
+
+            return res.render('main/chef', { chef, recipes, file });
         } catch (err) {
             console.error(err);
         }
