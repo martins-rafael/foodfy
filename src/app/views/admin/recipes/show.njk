@@ -11,7 +11,23 @@
                 <a class="btn" href="/admin/recipes/{{recipe.id}}/edit">Editar receita</a>
             </div>
 
-            <img src="{{recipe.image}}" alt="imagem de {{recipe.title}}">
+            <div class="gallery">
+                <div class="highlight">
+                    {% if not files[0] %}
+                        <img src="http://placehold.it/940x280?text=Receita sem foto" alt="foto da receita">
+                    {% else %}
+                        <img src="{{files[0].src}}" alt="Imagem de {{files[0].name}}">
+                    {% endif %}
+                </div>
+
+                <div class="gallery-preview">
+                    {% for image in files %}
+                        <img src="{{image.src}}" alt="Imagem de {{image.name}}"
+                            {% if loop.index0 == 0 %} class="active-image" {% endif %}
+                        >
+                    {% endfor %}
+                </div>
+            </div>
 
             <div class="title">
                 <h1>{{recipe.title}}</h1>

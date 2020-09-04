@@ -63,7 +63,14 @@ module.exports = {
 
             if (!recipe) return res.send('Receita não encontrada!');
 
-            return res.render('admin/recipes/show', { recipe });
+            results = await Recipe.files(recipe.id);
+            let files = results.rows;
+            files = files.map(file => ({
+                ...file,
+                src: `${req.protocol}://${req.headers.host}${file.path.replace('public', '')}`
+            }));
+
+            return res.render('admin/recipes/show', { recipe, files });
         } catch (err) {
             console.error(err);
         }

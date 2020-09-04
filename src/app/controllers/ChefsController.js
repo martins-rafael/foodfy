@@ -1,4 +1,5 @@
 const Chef = require('../models/Chef');
+const Recipe = require('../models/Recipe');
 const File = require('../models/File');
 
 module.exports = {
@@ -46,14 +47,30 @@ module.exports = {
 
             if (!chef) return res.send('Chef não encontrado!');
 
-            results = await Chef.chefRecipes(req.params.id);
+            results = await Chef.file(chef.file_id);
+            chef.file = { ...results.rows[0] };
+            chef.file.src = `${req.protocol}://${req.headers.host}${chef.file.path.replace('public', '')}`;
+
+            results = await Chef.chefRecipes(chef.id);
             const recipes = results.rows;
 
-            results = await Chef.file(chef.file_id);
-            const file = { ...results.rows[0] };
-            file.src = `${req.protocol}://${req.headers.host}${file.path.replace('public', '')}`;
+            async function getImage(recipeId) {
+                let results = await Recipe.files(recipeId);
+                const files = results.rows.map(file => {
+                    return `${req.protocol}://${req.headers.host}${file.path.replace('public', '')}`;
+                });
 
-            return res.render('admin/chefs/show', { chef, recipes, file });
+                return files[0];
+            }
+
+            const recipesPromise = recipes.map(async recipe => {
+                recipe.image = await getImage(recipe.id);
+                return recipe;
+            });
+
+            const allRecipes = await Promise.all(recipesPromise);
+
+            return res.render('admin/chefs/show', { chef, recipes: allRecipes });
         } catch (err) {
             console.error(err);
         }
