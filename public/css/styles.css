@@ -220,6 +220,10 @@ section.most-popular {
     margin-bottom: 56px;
 }
 
+/* =====================
+==== RECIPE GALLERY ====
+===================== */
+
 .selected .gallery {
     width: 100%;
 }
@@ -255,6 +259,58 @@ section.most-popular {
 .gallery .gallery-preview img.active-image {
     opacity: 1;
 }
+
+/* ==============================
+==== LIGHTBOX RECIPE GALLERY ====
+============================== */
+
+.gallery .highlight .lightbox-target {
+    position: fixed;
+    top: -100%;
+    left: 0;
+    z-index: 100;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, .7);
+    opacity: 1;
+    transition: opacity .4s;
+    overflow: hidden;
+}
+
+.gallery .highlight .lightbox-target img {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    margin: auto;
+    width: 90%;
+    height: 90%;
+    background-color: #fff;
+    object-fit: contain;
+    border-radius: 4px;
+    box-shadow: 0px 0px 8px rgba(0, 0, 0, .3);
+}
+
+.gallery .highlight a.lightbox-close {
+    position: absolute;
+    top: -80px;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    text-decoration: none;
+    color: #f00;
+    background-color: #fff;
+    border-radius: 50%;
+    transition: .4s;
+}
+
+/* =============
+==== RECIPE ====
+============= */
 
 .selected .title {
     text-align: center;
