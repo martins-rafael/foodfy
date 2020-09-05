@@ -10,7 +10,35 @@
 
 {% block content %}
     <section class="selected container">
-        <img src="{{recipe.image}}" alt="imagem de {{recipe.title}}">
+        <div class="gallery">
+            <div class="highlight">
+                {% if not files[0] %}
+                    <img src="http://placehold.it/940x280?text=Receita sem foto" alt="Imagem da receita">
+                {% else %}
+                    <img src="{{files[0].src}}" alt="Imagem de {{recipe.title}}" onclick="Lightbox.open()">
+                {% endif %}
+
+                <div class="lightbox-target">
+                    <img src="{{files[0].src}}" alt="Imagem de {{recipe.title}}">
+                    <a
+                        href="#"
+                        class="lightbox-close"
+                        onclick="Lightbox.close()"
+                    >
+                        <i class="material-icons">close</i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="gallery-preview">
+                {% for image in files %}
+                <img src="{{image.src}}" alt="Imagem de {{recipe.title}}"
+                    {% if loop.index0 == 0 %} class="active-image" {% endif %}
+                    onclick="ImageGallery.setImage(event)"
+                >
+                {% endfor %}
+            </div>
+        </div>
 
         <div class="title">
             <h1>{{recipe.title}}</h1>

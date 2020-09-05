@@ -8,7 +8,7 @@
     <section class="container chef-container">
         {% for chef in chefs %}
             <div class="chef" data-id={{chef.id}}>
-                <img src="{{chef.avatar_url}}" alt="imagem de {{chef.name}}">
+                <img src="{{chef.image}}" alt="imagem de {{chef.name}}">
                 <div>
                     <h3>{{chef.name}}</h3>
                     <p class="title">{{chef.total_recipes}} receitas</p>

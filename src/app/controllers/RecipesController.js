@@ -8,7 +8,21 @@ module.exports = {
             const results = await Recipe.all();
             const recipes = results.rows;
 
-            return res.render('admin/recipes/index', { recipes });
+            async function getImage(recipeId) {
+                let results = await Recipe.files(recipeId);
+                const file = results.rows[0];
+
+                return `${req.protocol}://${req.headers.host}${file.path.replace('public', '')}`;
+            }
+
+            const recipesPromise = recipes.map(async recipe => {
+                recipe.image = await getImage(recipe.id);
+                return recipe;
+            });
+
+            const allRecipes = await Promise.all(recipesPromise);
+
+            return res.render('admin/recipes/index', { recipes: allRecipes });
         } catch (err) {
             console.error(err);
         }
@@ -94,7 +108,7 @@ module.exports = {
 
             return res.render('admin/recipes/edit', { recipe, chefsOptions, files });
         } catch (err) {
-            console.log(err);
+            console.error(err);
         }
     },
     async put(req, res) {
@@ -125,7 +139,7 @@ module.exports = {
                 const removedFiles = req.body.removed_files.split(',');
                 const lastIndex = removedFiles.length - 1;
                 removedFiles.splice(lastIndex, 1);
-                
+
                 const removedFilesPromise = removedFiles.map(id => {
                     RecipeFile.delete(id);
                     File.delete(id);

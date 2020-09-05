@@ -8,7 +8,21 @@ module.exports = {
             const results = await Chef.all();
             const chefs = results.rows;
 
-            return res.render('admin/chefs/index', { chefs });
+            async function getImage(file_id) {
+                let results = await Chef.file(file_id);
+                const file = results.rows[0];
+
+                return `${req.protocol}://${req.headers.host}${file.path.replace('public', '')}`;
+            }
+
+            const chefsPromise = chefs.map(async chef => {
+                chef.image = await getImage(chef.file_id);
+                return chef;
+            });
+
+            const allChefs = await Promise.all(chefsPromise);
+
+            return res.render('admin/chefs/index', { chefs: allChefs });
         } catch (err) {
             console.error(err);
         }
@@ -56,11 +70,9 @@ module.exports = {
 
             async function getImage(recipeId) {
                 let results = await Recipe.files(recipeId);
-                const files = results.rows.map(file => {
-                    return `${req.protocol}://${req.headers.host}${file.path.replace('public', '')}`;
-                });
+                const file = results.rows[0];
 
-                return files[0];
+                return `${req.protocol}://${req.headers.host}${file.path.replace('public', '')}`;
             }
 
             const recipesPromise = recipes.map(async recipe => {
@@ -100,7 +112,7 @@ module.exports = {
                     return res.send('Por favor, preencha todos os campos.');
             });
 
-            if (req.body.removed_files && req.files == 0) 
+            if (req.body.removed_files && req.files == 0)
                 return res.send('Por favor, envie uma imagem.');
 
             let file_id;
