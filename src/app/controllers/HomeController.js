@@ -66,7 +66,7 @@ module.exports = {
                 pagination.total = 1;
                 pagination.page = page;
             } else {
-                pagination.total = Math.ceil(recipes[0].total / limit);;
+                pagination.total = Math.ceil(recipes[0].total / limit);
                 pagination.page = page;
             }
 

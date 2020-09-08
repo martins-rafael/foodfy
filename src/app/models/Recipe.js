@@ -21,7 +21,6 @@ module.exports = {
             ingredients,
             preparation,
             information,
-            created_at
         ) VALUES ($1, $2, $3, $4, $5, $6)
         RETURNING id
         `;
@@ -32,7 +31,6 @@ module.exports = {
             data.ingredients,
             data.preparation,
             data.information,
-            date(Date.now())
         ];
 
         return db.query(query, values);
@@ -75,7 +73,8 @@ module.exports = {
             filterQuery = '',
             totalQuery = `(
                 SELECT count(*) FROM recipes
-            ) AS total`;
+            ) AS total`,
+            orderBy = 'ORDER BY recipes.created_at DESC';
 
         if (search) {
             filterQuery = `
@@ -86,6 +85,8 @@ module.exports = {
                 SELECT count(*) FROM recipes
                 ${filterQuery}
             ) AS total`;
+
+            orderBy = 'ORDER BY recipes.updated_at DESC'
         }
 
         query = `
@@ -93,7 +94,7 @@ module.exports = {
         FROM recipes
         LEFT JOIN chefs ON (recipes.chef_id = chefs.id)
         ${filterQuery}
-        ORDER by title ASC
+        ${orderBy}
         LIMIT $1 OFFSET $2
         `;
 

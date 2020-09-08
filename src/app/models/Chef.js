@@ -15,14 +15,14 @@ module.exports = {
         SELECT recipes.*
         FROM recipes
         LEFT JOIN chefs ON (chefs.id = recipes.chef_id)
-        WHERE chefs.id = $1`, [id]);
+        WHERE chefs.id = $1
+        ORDER BY recipes.created_at DESC`, [id]);
     },
     create(data) {
         const query = `
         INSERT INTO chefs (
             name,
             file_id,
-            created_at
         ) Values ($1, $2, $3)
         RETURNING id
         `;
@@ -30,7 +30,6 @@ module.exports = {
         const values = [
             data.name,
             data.file_id,
-            date(Date.now())
         ];
 
         return db.query(query, values);
