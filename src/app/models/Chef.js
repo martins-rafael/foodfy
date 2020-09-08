@@ -8,7 +8,7 @@ module.exports = {
         FROM chefs
         LEFT JOIN recipes ON (chefs.id = recipes.chef_id)
         GROUP BY chefs.id
-        ORDER BY total_recipes DESC`);
+        ORDER BY chefs.created_at DESC`);
     },
     chefRecipes(id) {
         return db.query(`
@@ -22,8 +22,8 @@ module.exports = {
         const query = `
         INSERT INTO chefs (
             name,
-            file_id,
-        ) Values ($1, $2, $3)
+            file_id
+        ) Values ($1, $2)
         RETURNING id
         `;
 

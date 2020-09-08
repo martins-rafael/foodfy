@@ -7,7 +7,7 @@ module.exports = {
         SELECT recipes.*, chefs.name AS chef_name
         FROM recipes
         LEFT JOIN chefs ON (recipes.chef_id = chefs.id)
-        ORDER by created_at ASC
+        ORDER by created_at DESC
         `);
     },
     chefsSelectOptions() {
@@ -20,8 +20,8 @@ module.exports = {
             title,
             ingredients,
             preparation,
-            information,
-        ) VALUES ($1, $2, $3, $4, $5, $6)
+            information
+        ) VALUES ($1, $2, $3, $4, $5)
         RETURNING id
         `;
 
