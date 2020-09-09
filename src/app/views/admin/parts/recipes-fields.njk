@@ -8,6 +8,10 @@
                 name="photos"
                 multiple
                 accept="image/*"
+                {% if files %}
+                {% else %}
+                    required
+                {% endif %}
                 onchange="PhotosUpload.handleFileInput(event, 5)"
             >
             <i class="material-icons">add</i>
@@ -35,6 +39,7 @@
         <input
             type="text"
             name="title"
+            required
             value="{{recipe.title}}"
         >
     </div>
@@ -43,7 +48,7 @@
 <div class="item">
     <div>Chef</div>
     <div>
-        <select name="chef">
+        <select name="chef" required>
             <option disabled selected value>Selecione um chef</option>
             {% for chef in chefsOptions %}
                 <option
@@ -64,6 +69,7 @@
             <input
                 type="text"
                 name="ingredients[]"
+                required
                 value="{{ingredient}}"
             >
         </div>
@@ -72,6 +78,7 @@
             <input
                 type="text"
                 name="ingredients[]"
+                required
             >
         </div>
     {% endfor %}
@@ -86,6 +93,7 @@
             <input
                 type="text"
                 name="preparation[]"
+                required
                 value="{{preparation}}"
             >
         </div>
@@ -94,6 +102,7 @@
             <input
                 type="text"
                 name="preparation[]"
+                required
             >
         </div>
     {% endfor %}
@@ -104,6 +113,6 @@
 <div class="item">
     <div>informações adicionais</div>
     <div>
-        <textarea name="information">{{recipe.information}}</textarea>
+        <textarea name="information" required>{{recipe.information}}</textarea>
     </div>
 </div>

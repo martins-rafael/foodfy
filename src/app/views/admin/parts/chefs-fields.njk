@@ -1,7 +1,7 @@
 <div class="item">
     <div>Nome</div>
     <div>
-        <input type="text" name="name" value="{{chef.name}}">
+        <input type="text" name="name" required value="{{chef.name}}">
     </div>
 </div>
 
@@ -14,6 +14,10 @@
                 type="file"
                 name="photos"
                 accept="images/*"
+                {% if file %}
+                {% else %}
+                    required
+                {% endif %}
                 onchange="PhotosUpload.handleFileInput(event, 1)"
             >
             <i class="material-icons">add</i>
