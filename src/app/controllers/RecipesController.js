@@ -157,7 +157,16 @@ module.exports = {
     },
     async delete(req, res) {
         try {
+            let results = await Recipe.files(req.body.id);
+            const files = results.rows;
+            const deletedFilesPromise = files.map(file => {
+                RecipeFile.delete(file.file_id);
+                File.delete(file.file_id);
+            });
+
+            await Promise.all(deletedFilesPromise);
             await Recipe.delete(req.body.id);
+
             return res.redirect('/admin');
         } catch (err) {
             console.error(err);

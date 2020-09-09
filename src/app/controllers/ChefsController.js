@@ -141,6 +141,8 @@ module.exports = {
     async delete(req, res) {
         try {
             await Chef.delete(req.body.id);
+            await File.delete(req.body.file_id);
+
             return res.redirect('/admin/chefs');
         } catch (err) {
             console.error(err);
