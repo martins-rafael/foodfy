@@ -1,7 +1,12 @@
 <div class="item">
     <div>Nome</div>
     <div>
-        <input type="text" name="name" required value="{{chef.name}}">
+        <input
+            type="text"
+            name="name"
+            required
+            value="{{chef.name}}"
+        >
     </div>
 </div>
 
@@ -14,14 +19,12 @@
                 type="file"
                 name="photos"
                 accept="images/*"
-                {% if file %}
-                {% else %}
-                    required
-                {% endif %}
+                {% if not file %} required {% endif %}
                 onchange="PhotosUpload.handleFileInput(event, 1)"
             >
             <i class="material-icons">add</i>
         </div>
+
         <div id="photos-preview">
             {% if file %}
                 <div class="photo" id="{{file.id}}">
@@ -31,6 +34,7 @@
                         onclick="PhotosUpload.removeOldPhoto(event)"
                     >close</i>
                 </div>
+                
                 <input type="hidden" name="removed_files">
                 <input type="hidden" name="file_id" value="{{file.id}}">
             {% endif %}

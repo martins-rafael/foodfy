@@ -1,37 +1,10 @@
-{% extends 'layouts/main.njk' %}
+{% extends "templates/layouts/main.njk" %}
+{% import "templates/macros/chef.njk" as section %}
 
 {% block head %}
     <title>{{chef.name}} | Foodfy</title>
 {% endblock %}
 
 {% block content %}
-    <section class="selected container">
-        <div class="chef-avatar">
-            <img src="{{file.src}}" alt="imagem de {{file.name}}">
-        </div>
-
-        <div class="title chef-title">
-            <h1>{{chef.name}}</h1>
-            <p>{{chef.total_recipes}} receitas</p>
-        </div>
-
-        <section class="admin" {% if chef.total_recipes == 0 %} style="display: none;" {% endif %}>
-            <div class="title">
-                <h2>Receitas</h2>
-            </div>
-
-            <div class="recipe-container-adm">
-                {% for recipe in recipes %}
-                    <div class="recipe">
-                        <img src="{{recipe.image}}" alt="imagem de {{recipe.title}}">
-                        <div>
-                            <h3>{{recipe.title}}</h3>
-                            <p>por {{chef.name}}</p>
-                            <a href="/recipes/{{recipe.id}}">Visualizar</a>
-                        </div>
-                    </div>
-                {% endfor %}
-            </div>
-        </section>
-    </section>
+    {{ section.chef("", chef, recipes) }}
 {% endblock %}

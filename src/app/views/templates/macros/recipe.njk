@@ -1,0 +1,94 @@
+{% macro recipe(header, classes, hide, recipe, files) %}
+    <section class="selected container">
+        {% if header %}
+            <div class="title">
+                <h2>Receita: {{recipe.title}}</h2>
+                <a class="btn" href="/admin/recipes/{{recipe.id}}/edit">Editar receita</a>
+            </div>
+        {% endif %}
+
+        <div class="gallery">
+            <div class="highlight">
+                {% if not files[0] %}
+                    <img src="http://placehold.it/940x280?text=Receita sem foto" alt="Imagem da receita">
+                {% else %}
+                    <img src="{{files[0].src}}" alt="Imagem de {{recipe.title}}" onclick="Lightbox.open()">
+                {% endif %}
+
+                <div class="lightbox-target">
+                    <img src="{{files[0].src}}" alt="Imagem de {{recipe.title}}">
+                    <a
+                        href="#"
+                        class="lightbox-close"
+                        onclick="Lightbox.close()"
+                    >
+                        <i class="material-icons">close</i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="gallery-preview">
+                {% for image in files %}
+                    <img
+                        src="{{image.src}}"
+                        alt="Imagem de {{recipe.title}}"
+                        {% if loop.index0 == 0 %} class="active-image" {% endif %}
+                        onclick="ImageGallery.setImage(event)"
+                    >
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="title">
+            <h1>{{recipe.title}}</h1>
+            <p>por {{recipe.chef_name}}</p>
+        </div>
+
+        <div class="recipe-item {{classes}}">
+            <div class="title">
+                <h2>Igredientes</h2>
+                {% if hide %}
+                    <p class="hide">ESCONDER</p>
+                {% endif %}
+            </div>
+
+            <div class="content">
+                <ul>
+                    {% for ingredient in recipe.ingredients %}
+                        <li>{{ingredient}}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+
+        <div class="recipe-item {{classes}}">
+            <div class="title">
+                <h2>Modo de preparo</h2>
+                {% if hide %}
+                    <p class="hide">ESCONDER</p>
+                {% endif %}
+            </div>
+
+            <div class="content">
+                <ul>
+                    {% for preparation in recipe.preparation %}
+                        <li>{{preparation}}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+
+        <div class="recipe-item {{classes}}">
+            <div class="title">
+                <h2>Informações adicionais</h2>
+                {% if hide %}
+                    <p class="hide">ESCONDER</p>
+                {% endif %}
+            </div>
+
+            <div class="content">
+                {{recipe.information}}
+            </div>
+        </div>
+    </section>
+{% endmacro %}

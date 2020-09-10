@@ -80,9 +80,9 @@ module.exports = {
                 return recipe;
             });
 
-            const allRecipes = await Promise.all(recipesPromise);
+            const allChefRecipes = await Promise.all(recipesPromise);
 
-            return res.render('admin/chefs/show', { chef, recipes: allRecipes });
+            return res.render('admin/chefs/show', { chef, recipes: allChefRecipes });
         } catch (err) {
             console.error(err);
         }

@@ -8,14 +8,12 @@
                 name="photos"
                 multiple
                 accept="image/*"
-                {% if files %}
-                {% else %}
-                    required
-                {% endif %}
+                {% if not files %} required {% endif %}
                 onchange="PhotosUpload.handleFileInput(event, 5)"
             >
             <i class="material-icons">add</i>
         </div>
+
         <div id="photos-preview">
             {% if files %}
                 {% for image in files%}
@@ -27,6 +25,7 @@
                         >close</i>
                     </div>
                 {% endfor %}
+                
                 <input type="hidden" name="removed_files">
             {% endif %}
         </div>

@@ -1,4 +1,5 @@
-{% extends 'layouts/admin.njk' %}
+{% extends 'templates/layouts/admin.njk' %}
+{% import "templates/macros/chefs-list.njk" as section %}
 
 {% block head %}
     <title>Gerenciar chefs | Foodfy</title>
@@ -11,16 +12,6 @@
             <a class="btn" href="/admin/chefs/create">Novo chef</a>
         </div>
 
-        <div class="chef-container-admin">
-            {% for chef in chefs %}
-                <div class="chef">
-                    <img src="{{chef.image}}" alt="imagem de {{chef.name}}">
-                    <div>
-                        <h3>{{chef.name}}</h3>
-                        <a href="/admin/chefs/{{chef.id}}">Visualizar</a>
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
+        {{ section.chefs("chef-container-admin", "", chefs) }}
     </section>
 {% endblock %}

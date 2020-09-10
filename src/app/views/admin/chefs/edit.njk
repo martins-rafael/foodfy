@@ -1,4 +1,4 @@
-{% extends 'layouts/admin.njk' %}
+{% extends 'templates/layouts/admin.njk' %}
 
 {% block head %}
     <title>Editar Chef | Foodfy</title>
@@ -16,7 +16,7 @@
                 </div>
             </div>
 
-            {% include "admin/parts/chefs-fields.njk" %}
+            {% include "templates/includes/chefs-fields.njk" %}
 
             <input type="hidden" name="id" value={{chef.id}}>
         </form>

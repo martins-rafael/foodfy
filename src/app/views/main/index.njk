@@ -1,11 +1,11 @@
-{% extends "layouts/main.njk" %}
+{% extends "templates/layouts/main.njk" %}
 
 {% block head %}
     <title>Foodfy - As melhores receitas</title>
 {% endblock %}
 
 {% block search %}
-    {% include "main/parts/recipe-search.njk" %}
+    {% include "templates/includes/search.njk" %}
 {% endblock %}
 
 {% block content %}
@@ -13,7 +13,8 @@
         <div class="banner-content">
             <h1>As melhores receitas</h1>
             <p>
-                Aprenda a construir os melhores pratos com receitas criadas por profissionais do mundo inteiro.
+                Aprenda a construir os melhores pratos com
+                receitas criadas por profissionais do mundo inteiro.
             </p>
         </div>
 
@@ -24,7 +25,6 @@
 
     <section class="most-popular container">
         <h2>Mais acessadas</h2>
-
-        {% include "main/parts/recipes.njk" %}
+        {% include "templates/includes/recipes-list.njk" %}
     </section>
 {% endblock %}

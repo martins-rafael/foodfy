@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        {% include "templates/includes/head-content.njk" %}
+
+        {% block head %}
+            <title>Foodfy</title>
+        {% endblock %}
+    </head>
+
+    <body>
+        <header>
+            <div class="container">
+                {% include "templates/includes/links-main.njk" %}
+
+                {% block search%}
+                {% endblock %}
+            </div>
+        </header>
+
+        {% block content %}
+        {% endblock %}
+
+        <footer>
+            <p>Todos os direitos reservados, receitas Foodfy.</p>
+        </footer>
+
+        <script src="/js/scripts.js"></script>
+    </body>
+</html>

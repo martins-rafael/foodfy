@@ -1,18 +1,18 @@
-{% extends 'layouts/main.njk' %}
+{% extends "templates/layouts/main.njk" %}
 
 {% block head %}
     <title>Buscando por "{{search}}" | Foodfy</title>
 {% endblock %}
 
 {% block search %}
-    {% include "main/parts/recipe-search.njk" %}
+    {% include "templates/includes/search.njk" %}
 {% endblock %}
 
 {% block content %}
     <section class="container">
         <h2>Buscando por "{{search}}"</h2>
         
-        {% include "main/parts/recipes.njk" %} 
-        {% include "main/parts/pagination.njk" %}
+        {% include "templates/includes/recipes-list.njk" %} 
+        {% include "templates/includes/pagination.njk" %}
     </section>
 {% endblock %}

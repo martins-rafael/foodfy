@@ -128,8 +128,8 @@ module.exports = {
             if (!chef) res.send('Chef não encontrado!');
 
             results = await Chef.file(chef.file_id);
-            const file = { ...results.rows[0] };
-            file.src = `${req.protocol}://${req.headers.host}${file.path.replace('public', '')}`;
+            chef.file = { ...results.rows[0] };
+            chef.file.src = `${req.protocol}://${req.headers.host}${chef.file.path.replace('public', '')}`;
 
             results = await Chef.chefRecipes(req.params.id);
             const recipes = results.rows;
@@ -146,9 +146,9 @@ module.exports = {
                 return recipe;
             });
 
-            const allChefsRecipes = await Promise.all(recipesPromise);
+            const allChefRecipes = await Promise.all(recipesPromise);
 
-            return res.render('main/chef', { chef, recipes: allChefsRecipes, file });
+            return res.render('main/chef', { chef, recipes: allChefRecipes });
         } catch (err) {
             console.error(err);
         }

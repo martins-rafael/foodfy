@@ -1,19 +1,10 @@
-{% extends 'layouts/main.njk' %}
+{% extends "templates/layouts/main.njk" %}
+{% import "templates/macros/chefs-list.njk" as section %}
 
 {% block head %}
     <title>Chefs | Foodfy</title>
 {% endblock %}
 
 {% block content %}
-    <section class="container chef-container">
-        {% for chef in chefs %}
-            <div class="chef" data-id={{chef.id}}>
-                <img src="{{chef.image}}" alt="imagem de {{chef.name}}">
-                <div>
-                    <h3>{{chef.name}}</h3>
-                    <p class="title">{{chef.total_recipes}} receitas</p>
-                </div>
-            </div>
-        {% endfor %}
-    </section>
+    {{ section.chefs("container chef-container", "total_recipes", chefs) }}
 {% endblock %}
