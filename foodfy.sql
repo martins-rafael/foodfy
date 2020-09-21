@@ -1,6 +1,7 @@
 CREATE TABLE "recipes" (
   "id" SERIAL PRIMARY KEY,
   "chef_id" int,
+  "user_id" int,
   "title" text,
   "ingredients" text[],
   "preparation" text[],
@@ -29,12 +30,25 @@ CREATE TABLE "recipe_files" (
   "file_id" int
 );
 
+CREATE TABLE "users" (
+  "id" SERIAL PRIMARY KEY,
+  "name" text NOT NULL,
+  "email" text UNIQUE NOT NULL,
+  "password" text NOT NULL,
+  "reset_token" text,
+  "reset_token_expires" text,
+  "is_admin" boolean DEFAULT false,
+  "created_at" timestamp DEFAULT (now()),
+  "updated_at" timestamp DEFAULT (now())
+);
+
+-- foreign key
+ALTER TABLE "recipes" ADD FOREIGN KEY ("user_id") REFERENCES "users" ("id");
 ALTER TABLE "chefs" ADD FOREIGN KEY ("file_id") REFERENCES "files" ("id");
-
 ALTER TABLE "recipe_files" ADD FOREIGN KEY ("recipe_id") REFERENCES "recipes" ("id");
-
 ALTER TABLE "recipe_files" ADD FOREIGN KEY ("file_id") REFERENCES "files" ("id");
 
+-- create procedure
 CREATE FUNCTION trigger_set_timestamp()
 RETURNS TRIGGER AS $$
 BEGIN
@@ -43,12 +57,20 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
+-- auto update recipes
 CREATE TRIGGER set_timestamp
 BEFORE UPDATE ON recipes
 FOR EACH ROW
 EXECUTE PROCEDURE trigger_set_timestamp();
 
+-- auto update chefs
 CREATE TRIGGER set_timestamp
 BEFORE UPDATE ON chefs
+FOR EACH ROW
+EXECUTE PROCEDURE trigger_set_timestamp();
+
+-- auto update users
+CREATE TRIGGER set_timestamp
+BEFORE UPDATE ON users
 FOR EACH ROW
 EXECUTE PROCEDURE trigger_set_timestamp();
