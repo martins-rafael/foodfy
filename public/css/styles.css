@@ -39,7 +39,7 @@ header .container {
 
 header .links ul {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, auto);
     gap: 16px;
     max-width: 300px;
     list-style: none;
@@ -423,9 +423,11 @@ button {
 form button,
 .btn {
     padding: 8px 20px;
+    min-width: 140px;
     height: 40px;
     line-height: 26px;
     font-weight: bold;
+    text-align: center;
     color: var(--color-white-paper);
     background-color: var(--color-purple);
     border: 0;
@@ -646,4 +648,28 @@ form .add {
     /* color: var(--color-gray); */
     font-weight: bold;
     border-bottom: 1px solid var(--color-default-black);
+}
+
+/* ============
+==== LOGIN ==== 
+============ */
+
+section.login.container {
+    max-width: 500px;
+}
+
+section.login.container .footer ul {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+section.login.container .footer ul a {
+    font-weight: bold;
+    text-decoration: none;
+    color: #969696;
+}
+
+section.login.container .footer ul a:hover {
+    color: var(--color-purple);
 }

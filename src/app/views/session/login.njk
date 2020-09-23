@@ -1,0 +1,28 @@
+{% extends "templates/layouts/main.njk" %}
+
+{% block head %}
+    <title>Login | Foodfy</title>
+{% endblock %}
+
+{% block content %}
+    <section class="login container">
+        <form action="/admin/users/login" method="POST">
+            <div class="title">
+                <h2>Iniciar Sessão</h2>
+            </div>
+
+            {% include "templates/includes/login-fields.njk" %}
+
+            <div class="footer">
+                <ul>
+                    <li>
+                        <a href="/admin/users/forgot-password">Perdeu a senha?</a>
+                    </li>
+                    <li>
+                        <button type="submit">Acessar</button>
+                    </li>
+                </ul>
+            </div>
+        </form>
+    </section>
+{% endblock %}
