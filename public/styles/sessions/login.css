@@ -1,0 +1,35 @@
+section.login.container {
+    max-width: 500px;
+}
+
+section.login.container .title {
+    justify-content: center;
+}
+
+section.login.container .footer {
+    margin-top: 35px;
+}
+
+section.login.container .footer ul {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+section.login.container .footer ul a {
+    font-weight: bold;
+    color: #969696;
+}
+
+section.login.container .footer ul a:hover {
+    color: var(--color-purple);
+}
+
+.item .error {
+    padding: 4px 8px;
+    margin-top: 5px;
+    text-align: center;
+    color: var(--color-white-paper);
+    background-color: var(--color-danger-red);
+    border-radius: 4px;
+}

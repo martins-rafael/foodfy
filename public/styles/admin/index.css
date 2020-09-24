@@ -1,0 +1,25 @@
+header.header-admin {
+    background-color: var(--color-default-black);
+}
+
+header.header-admin .container {
+    grid-template-columns: 92px 1fr;
+    gap: 50px;
+}
+
+.header-admin .links {
+    justify-self: start;
+}
+
+.header-admin .links ul {
+    grid-template-columns: 1fr 1fr;
+}
+
+.header-admin .links a {
+    text-transform: uppercase;
+    color: var(--color-light-gray);
+}
+
+.header-admin .links a.active {
+    color: var(--color-white-paper);
+}

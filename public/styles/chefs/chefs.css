@@ -1,0 +1,45 @@
+.chef-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 20px;
+    margin-top: 24px;
+}
+
+
+.chef {
+    display: grid;
+    grid-template-columns: 30% 70%;
+    align-items: center;
+    cursor: pointer;
+}
+
+.admin .chef {
+    cursor: default;
+}
+
+.chef img {
+    width: 64px;
+    height: 64px;
+    object-fit: cover;
+    border-radius: 64px;
+}
+
+.chef h3 {
+    margin: 5px 20px;
+    font-size: 18px;
+    font-weight: normal;
+}
+
+.chef p {
+    margin: 0 20px;
+    font-size: 14px;
+    color: var(--color-gray);
+}
+
+.chef a {
+    display: inline-block;
+    margin: 0 20px;
+    font-size: 14px;
+    font-weight: bold;
+    color: var(--color-purple);
+}
