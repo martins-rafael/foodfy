@@ -1,6 +1,8 @@
 {% extends "templates/layouts/main.njk" %}
 
 {% block head %}
+    <link rel="stylesheet" href="/styles/sessions/login.css">
+    <link rel="stylesheet" href="/styles/admin/forms.css">
     <title>Login | Foodfy</title>
 {% endblock %}
 
@@ -11,7 +13,7 @@
                 <h2>Iniciar Sessão</h2>
             </div>
 
-            {% include "templates/includes/login-fields.njk" %}
+            {% include "templates/includes/sessions/login-fields.njk" %}
 
             <div class="footer">
                 <ul>

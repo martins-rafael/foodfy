@@ -1,10 +1,11 @@
 {% extends 'templates/layouts/admin.njk' %}
-{% import "templates/macros/recipe.njk" as section %}
+{% import "templates/macros/recipe-content.njk" as recipeContent %}
 
 {% block head %}
+    <link rel="stylesheet" href="/styles/recipes/recipe-page.css">
     <title>Receita: {{recipe.title}} | Foodfy</title>
 {% endblock %}
 
 {% block content %}
-    {{ section.recipe("header", "", "", recipe, files) }}
+    {{ recipeContent.recipe("header", "", recipe, files) }}
 {% endblock %}

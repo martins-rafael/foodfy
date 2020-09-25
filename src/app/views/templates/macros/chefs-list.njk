@@ -1,5 +1,5 @@
-{% macro chefs(classes, total_recipes, chefs) %}
-    <section class="{{classes}}">
+{% macro chefs(total_recipes, chefs) %}
+    <section class="chef-container">
         {% for chef in chefs %}
             <div class="chef" data-id={{chef.id}}>
                 <img src="{{chef.image}}" alt="imagem de {{chef.name}}">

@@ -70,7 +70,7 @@ module.exports = {
                 pagination.page = page;
             }
 
-            if (search) return res.render('main/result', { recipes: allRecipes, search, pagination });
+            if (search) return res.render('main/search-result', { recipes: allRecipes, search, pagination });
 
             return res.render('main/recipes', { recipes: allRecipes, pagination });
         } catch (err) {
@@ -91,7 +91,7 @@ module.exports = {
                 src: `${req.protocol}://${req.headers.host}${file.path.replace('public', '')}`
             }));
 
-            return res.render('main/recipe', { recipe, files });
+            return res.render('main/recipe-page', { recipe, files });
         } catch (err) {
             console.error(err);
         }
@@ -148,7 +148,7 @@ module.exports = {
 
             const allChefRecipes = await Promise.all(recipesPromise);
 
-            return res.render('main/chef', { chef, recipes: allChefRecipes });
+            return res.render('main/chef-profile', { chef, recipes: allChefRecipes });
         } catch (err) {
             console.error(err);
         }

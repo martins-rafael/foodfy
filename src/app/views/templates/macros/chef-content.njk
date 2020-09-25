@@ -1,4 +1,4 @@
-{% macro chef(header, chef, recipes) %}
+{% macro chef(header, chef, recipes, admin) %}
     <section class="selected container">
         {% if header %}
             <div class="title">
@@ -21,16 +21,9 @@
                 <h2>Receitas</h2>
             </div>
 
-            <div class="recipe-container-adm">
+            <div class="recipe-container">
                 {% for recipe in recipes %}
-                    <div class="recipe">
-                        <img src="{{recipe.image}}" alt="imagem de {{recipe.title}}">
-                        <div>
-                            <h3>{{recipe.title}}</h3>
-                            <p>por {{chef.name}}</p>
-                            <a href="/recipes/{{recipe.id}}">Visualizar</a>
-                        </div>
-                    </div>
+                    {% include "templates/includes/recipes/recipe-card.njk" %}
                 {% endfor %}
             </div>
         </section>

@@ -2,7 +2,7 @@
 
 {% block head %}
     <link rel="stylesheet" href="/styles/recipes/recipes-list.css">
-    <title>Receitas | Foodfy</title>
+    <title>Buscando por "{{search}}" | Foodfy</title>
 {% endblock %}
 
 {% block search %}
@@ -11,10 +11,12 @@
 
 {% block content %}
     <section class="container">
+        <h2>Buscando por "{{search}}"</h2>
+        
         <div class="recipe-container">
             {% include "templates/includes/recipes/recipe-card.njk" %}
         </div>
-         
+        
         {% include "templates/includes/recipes/pagination.njk" %}
     </section>
 {% endblock %}

@@ -1,0 +1,15 @@
+{% extends "templates/layouts/main.njk" %}
+{% import "templates/macros/recipe-content.njk" as recipeContent %}
+
+{% block head %}
+    <link rel="stylesheet" href="/styles/recipes/recipe-page.css">
+    <title>{{recipe.title}} | Foodfy</title>
+{% endblock %}
+
+{% block search %}
+    {% include "templates/includes/recipes/search.njk" %}
+{% endblock %}
+
+{% block content %}
+    {{ recipeContent.recipe("", "hide", recipe, files) }}
+{% endblock %}

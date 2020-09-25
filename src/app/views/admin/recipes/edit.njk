@@ -1,6 +1,7 @@
 {% extends 'templates/layouts/admin.njk' %}
 
 {% block head %}
+    <link rel="stylesheet" href="/styles/admin/forms.css">
     <title>Editar Receita | Foodfy</title>
 {% endblock %}
 
@@ -16,7 +17,7 @@
                 </div>
             </div>
 
-            {% include "templates/includes/recipes-fields.njk" %}
+            {% include "templates/includes/recipes/recipes-fields.njk" %}
 
             <input type="hidden" name="id" value={{recipe.id}}>
         </form>
@@ -26,5 +27,5 @@
         </form>
     </section>
 
-    {% include "templates/includes/recipes-addFields.njk" %}
+    {% include "templates/includes/recipes/recipes-addFields.njk" %}
 {% endblock %}

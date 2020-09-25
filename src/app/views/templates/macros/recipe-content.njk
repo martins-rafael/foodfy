@@ -1,4 +1,4 @@
-{% macro recipe(header, classes, hide, recipe, files) %}
+{% macro recipe(header, hide, recipe, files) %}
     <section class="selected container">
         {% if header %}
             <div class="title">
@@ -44,7 +44,7 @@
             <p>por {{recipe.chef_name}}</p>
         </div>
 
-        <div class="recipe-item {{classes}}">
+        <div class="recipe-item {% if hide %} recipe-hide {% endif %}">
             <div class="title">
                 <h2>Igredientes</h2>
                 {% if hide %}
@@ -61,7 +61,7 @@
             </div>
         </div>
 
-        <div class="recipe-item {{classes}}">
+        <div class="recipe-item {% if hide %} recipe-hide {% endif %}">
             <div class="title">
                 <h2>Modo de preparo</h2>
                 {% if hide %}
@@ -78,7 +78,7 @@
             </div>
         </div>
 
-        <div class="recipe-item {{classes}}">
+        <div class="recipe-item {% if hide %} recipe-hide {% endif %}">
             <div class="title">
                 <h2>Informações adicionais</h2>
                 {% if hide %}

@@ -1,4 +1,4 @@
-{% extends 'templates/layouts/admin.njk' %}
+{% extends "templates/layouts/main.njk" %}
 {% import "templates/macros/chef-content.njk" as chefContent %}
 
 {% block head %}
@@ -8,5 +8,5 @@
 {% endblock %}
 
 {% block content %}
-    {{ chefContent.chef("header", chef, recipes, "admin") }}
+    {{ chefContent.chef("", chef, recipes, "") }}
 {% endblock %}

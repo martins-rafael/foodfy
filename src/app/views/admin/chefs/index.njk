@@ -2,6 +2,7 @@
 {% import "templates/macros/chefs-list.njk" as section %}
 
 {% block head %}
+    <link rel="stylesheet" href="/styles/chefs/chefs-list.css">
     <title>Gerenciar chefs | Foodfy</title>
 {% endblock %}
 
@@ -12,6 +13,6 @@
             <a class="btn" href="/admin/chefs/create">Novo chef</a>
         </div>
 
-        {{ section.chefs("chef-container-admin", "", chefs) }}
+        {{ section.chefs("", chefs) }}
     </section>
 {% endblock %}

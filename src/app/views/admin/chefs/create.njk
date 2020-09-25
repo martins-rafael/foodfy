@@ -1,6 +1,7 @@
 {% extends 'templates/layouts/admin.njk' %}
 
 {% block head %}
+    <link rel="stylesheet" href="/styles/admin/forms.css">
     <title>Criar Chef | Foodfy</title>
 {% endblock %}
 
@@ -12,7 +13,7 @@
                 <button type="submit">Salvar chef</button>
             </div>
 
-            {% include "templates/includes/chefs-fields.njk" %}
+            {% include "templates/includes/chefs/chefs-fields.njk" %}
         </form>
     </section>
 {% endblock %}

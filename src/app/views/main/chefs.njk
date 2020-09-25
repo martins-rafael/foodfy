@@ -2,9 +2,12 @@
 {% import "templates/macros/chefs-list.njk" as section %}
 
 {% block head %}
+    <link rel="stylesheet" href="/styles/chefs/chefs-list.css">
     <title>Chefs | Foodfy</title>
 {% endblock %}
 
 {% block content %}
-    {{ section.chefs("container chef-container", "total_recipes", chefs) }}
+    <section class="container">
+        {{ section.chefs("total_recipes", chefs) }}
+    </section>
 {% endblock %}

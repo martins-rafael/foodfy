@@ -1,11 +1,12 @@
 {% extends "templates/layouts/main.njk" %}
 
 {% block head %}
+    <link rel="stylesheet" href="/styles/recipes/recipes-list.css">
     <title>Foodfy - As melhores receitas</title>
 {% endblock %}
 
 {% block search %}
-    {% include "templates/includes/search.njk" %}
+    {% include "templates/includes/recipes/search.njk" %}
 {% endblock %}
 
 {% block content %}
@@ -25,6 +26,9 @@
 
     <section class="most-popular container">
         <h2>Mais acessadas</h2>
-        {% include "templates/includes/recipes-list.njk" %}
+
+        <div class="recipe-container">
+            {% include "templates/includes/recipes/recipe-card.njk" %}
+        </div>
     </section>
 {% endblock %}
