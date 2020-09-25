@@ -24,12 +24,3 @@ section.login.container .footer ul a {
 section.login.container .footer ul a:hover {
     color: var(--color-purple);
 }
-
-.item .error {
-    padding: 4px 8px;
-    margin-top: 5px;
-    text-align: center;
-    color: var(--color-white-paper);
-    background-color: var(--color-danger-red);
-    border-radius: 4px;
-}

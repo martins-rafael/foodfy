@@ -1,3 +1,9 @@
+form .fields {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 40px;
+}
+
 form .item {
     margin-top: 24px;
 }
