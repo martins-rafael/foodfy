@@ -15,9 +15,11 @@
     "browsersync": "browser-sync start --proxy http://localhost:5000 --files 'public, src/app/views'"
   },
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "express": "^4.17.1",
     "method-override": "^3.0.0",
     "multer": "^1.4.2",
+    "nodemailer": "^6.4.11",
     "nunjucks": "^3.2.2",
     "pg": "^8.3.3"
   },
