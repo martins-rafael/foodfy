@@ -199,3 +199,30 @@ button.btn-delete:hover {
     background-color: var(--color-danger-red);
     border-radius: 4px;
 }
+
+.messages {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 344px;
+    height: 135px;
+    color: #fff;
+    border-radius: 4px;
+    opacity: 1;
+    animation: hidemessage .4s 3s ease-out forwards;
+}
+
+.messages.error {
+    background-color: var(--color-danger-red);
+}
+
+@keyframes hidemessage {
+    to {
+        right: 0;
+        opacity: 0;
+        visibility: hidden;
+    }
+}

@@ -1,6 +1,5 @@
 const db = require('../../config/db');
 const { hash } = require('bcryptjs');
-const { create } = require('browser-sync');
 
 module.exports = {
     async findOne(email) {
