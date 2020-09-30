@@ -5,7 +5,6 @@
             type="text"
             name="name"
             placeholder="Digite o nome completo"
-            required
             value={{user.name}}
         >
     </div>
@@ -18,9 +17,7 @@
             type="email"
             name="email"
             placeholder="Digite o email"
-            required
             value="{{user.email}}"
-            onblur="Validate.apply(this, 'isEmail')"
         >
     </div>
 </div>

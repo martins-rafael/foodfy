@@ -10,7 +10,10 @@
         <form action="/admin/chefs" method="POST" enctype="multipart/form-data">
             <div class="title">
                 <h2>Novo Chef</h2>
-                <button type="submit">Salvar chef</button>
+                <div>
+                    <button type="submit">Salvar chef</button>
+                    <a href="/admin/chefs" class="btn cancel">Cancelar</a>
+                </div>
             </div>
 
             {% include "templates/includes/chefs/chefs-fields.njk" %}

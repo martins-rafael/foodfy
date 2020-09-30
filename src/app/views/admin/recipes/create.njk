@@ -10,7 +10,10 @@
         <form action="/admin/recipes" method="POST" enctype="multipart/form-data">
             <div class="title">
                 <h2>Nova receita</h2>
-                <button type="submit">Salvar receita</button>
+                <div>
+                    <button type="submit">Salvar receita</button>
+                    <a href="/admin/recipes" class="btn cancel">Cancelar</a>
+                </div>
             </div>
 
             {% include "templates/includes/recipes/recipes-fields.njk" %}
