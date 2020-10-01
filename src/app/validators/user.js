@@ -14,30 +14,46 @@ function checkAllFields(body) {
 }
 
 async function post(req, res, next) {
-    // check if has all fields //
-    const fillAllFields = checkAllFields(req.body);
-    if (fillAllFields) return res.render('users/register', fillAllFields);
+    try {
+        // check if has all fields //
+        const fillAllFields = checkAllFields(req.body);
+        if (fillAllFields) return res.render('users/register', fillAllFields);
 
-    // check if user alread exists //
-    const { email } = req.body;
-    const user = await User.findOne(email);
-    if (user) return res.render('users/register', {
-        user: req.body,
-        error: 'Este usuário já está cadastrado!'
-    });
+        // check if user alread exists //
+        const { email } = req.body;
+        const user = await User.findOne({ where: { email } });
+        if (user) return res.render('users/register', {
+            user: req.body,
+            error: 'Este usuário já está cadastrado!'
+        });
 
-    // check email format //
-    const mailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-    if (!email.match(mailFormat)) {
-        return res.render('users/register', {
+        // check email format //
+        const mailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+        if (!email.match(mailFormat)) return res.render('users/register', {
             user: req.body,
             error: 'Formato de email inválido!'
         });
+
+        next();
+    } catch (error) {
+        console.error(error)
     }
+}
+
+async function edit(req, res, next) {
+    const { id } = req.params;
+    const user = await User.findOne({ where: { id } });
+
+    if (!user) return res.render('users/register', {
+        error: 'Usuário não encontrado!'
+    });
+
+    req.user = user;
 
     next();
 }
 
 module.exports = {
-    post
+    post,
+    edit
 };

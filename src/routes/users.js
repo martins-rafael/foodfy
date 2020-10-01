@@ -11,6 +11,8 @@ routes.get('/login', SessionController.loginForm);
 
 // User register //
 routes.get('/register', UserController.registerForm);
-routes.post('/register', UserValidator.post, UserController.post);
+routes.post('/', UserValidator.post, UserController.post);
+
+routes.get('/:id/edit', UserValidator.edit, UserController.edit);
 
 module.exports = routes;

@@ -2,7 +2,6 @@ const User = require('../models/User');
 const crypto = require('crypto');
 const mailer = require('../../lib/mailer');
 const { emailTemplate } = require('../../lib/utils');
-const { show } = require('./ChefController');
 
 module.exports = {
     registerForm(req, res) {
@@ -43,9 +42,15 @@ module.exports = {
             const data = { ...req.body, password };
             const userId = await User.create(data);
 
-            req.session.userId = userId;
-
-            return res.send('Success!');
+            return res.redirect(`/admin/users/${userId}/edit`);
+        } catch (err) {
+            console.error(err);
+        }
+    },
+    async edit(req, res) {
+        try {
+            const { user } = req;
+            return res.render('users/edit', { user });
         } catch (err) {
             console.error(err);
         }
