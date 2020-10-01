@@ -2,6 +2,7 @@ const User = require('../models/User');
 const crypto = require('crypto');
 const mailer = require('../../lib/mailer');
 const { emailTemplate } = require('../../lib/utils');
+const { show } = require('./ChefController');
 
 module.exports = {
     registerForm(req, res) {
@@ -40,7 +41,9 @@ module.exports = {
             });
 
             const data = { ...req.body, password };
-            const userID = await User.create(data);
+            const userId = await User.create(data);
+
+            req.session.userId = userId;
 
             return res.send('Success!');
         } catch (err) {

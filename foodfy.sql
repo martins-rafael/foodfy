@@ -63,14 +63,25 @@ BEFORE UPDATE ON recipes
 FOR EACH ROW
 EXECUTE PROCEDURE trigger_set_timestamp();
 
--- auto update chefs
+-- auto updated_at chefs
 CREATE TRIGGER set_timestamp
 BEFORE UPDATE ON chefs
 FOR EACH ROW
 EXECUTE PROCEDURE trigger_set_timestamp();
 
--- auto update users
+-- auto updated_at users
 CREATE TRIGGER set_timestamp
 BEFORE UPDATE ON users
 FOR EACH ROW
 EXECUTE PROCEDURE trigger_set_timestamp();
+
+-- connect pg simple table
+CREATE table "session" (
+  "sid" varchar NOT NULL COLLATE "default",
+  "sess" json NOT NULL,
+  "expire" timestamp(6) NOT NULL
+)
+WITH (OIDS=FALSE);
+ALTER TABLE "session"
+ADD CONSTRAINT "session_pkey"
+PRIMARY KEY ("sid") NOT DEFERRABLE INITIALLY IMMEDIATE;
