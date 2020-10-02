@@ -8,12 +8,18 @@ header.header-admin .container {
 }
 
 .header-admin .links {
-    justify-self: start;
+    width: 100%;
 }
 
 .header-admin .links ul {
-    grid-template-columns: repeat(3, 1fr);
-    text-align: center;
+    grid-template-columns: 1fr 1fr;
+}
+
+.header-admin .links ul .links-wrapper {
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    gap: 25px;
+    justify-content: start;
 }
 
 .header-admin .links a {
@@ -21,6 +27,18 @@ header.header-admin .container {
     color: var(--color-light-gray);
 }
 
-.header-admin .links a.active {
+.header-admin .links ul form {
+    text-align: end;
+}
+
+.header-admin .links ul button {
+    font-weight: bold;
+    text-transform: uppercase;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.header-admin .links a.active,
+.header-admin .links button {
     color: var(--color-white-paper);
 }

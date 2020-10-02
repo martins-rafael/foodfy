@@ -153,10 +153,9 @@ textarea:focus {
     box-shadow: 0px 0px 2px #ccc;
 }
 
-button,
 .btn {
     display: inline-block;
-    margin-right: 16px;
+    margin-left: 16px;
     padding: 8px 20px;
     min-width: 140px;
     height: 40px;
@@ -170,7 +169,6 @@ button,
     cursor: pointer;
 }
 
-button:hover,
 .btn:hover {
     background-color: var(--color-purple-dark);
 }

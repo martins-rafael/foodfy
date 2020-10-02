@@ -1,7 +1,6 @@
 header .container .filter-form {
     display: grid;
-    grid-template-columns: 248px 96px;
-    gap: 16px;
+    grid-template-columns: 248px auto;
     justify-self: end;
 }
 
