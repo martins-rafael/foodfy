@@ -4,8 +4,15 @@
 
 <nav class="links">
     <ul>
-        <li><a href="/admin/recipes">Receitas</a></li>
-        <li><a href="/admin/chefs">Chefs</a></li>
-        <li><a href="/admin/users">Usuários</a></li>
+        <div class="links-wrapper">
+            <li><a href="/admin/recipes">Receitas</a></li>
+            <li><a href="/admin/chefs">Chefs</a></li>
+            <li><a href="/admin/users">Usuários</a></li>
+        </div>
+        <li>
+            <form action="/admin/users/logout" method="POST">
+                <button>Sair</button>
+            </form>
+        </li>
     </ul>
 </nav>
