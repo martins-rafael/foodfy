@@ -73,8 +73,6 @@ const Validate = {
         div.classList.add('error');
         div.innerText = error;
         input.parentNode.appendChild(div);
-
-        input.focus();
     },
     clearErrors(input) {
         const errorDiv = input.parentNode.querySelector('.error');

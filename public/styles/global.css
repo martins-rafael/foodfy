@@ -10,6 +10,7 @@
     --color-button-gray-dark: #909090;
     --color-danger-red: #dc4747;
     --color-danger-red-dark: #c53e3e;
+    --color-success-green: #01B12A;
 }
 
 * {
@@ -215,6 +216,10 @@ button.btn-delete:hover {
 
 .messages.error {
     background-color: var(--color-danger-red);
+}
+
+.messages.success {
+    background-color: var(--color-success-green);
 }
 
 @keyframes hidemessage {
