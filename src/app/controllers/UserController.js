@@ -50,9 +50,26 @@ module.exports = {
     async edit(req, res) {
         try {
             const { user } = req;
+            user.is_admin = user.is_admin.toString();
+            
             return res.render('users/edit', { user });
         } catch (err) {
             console.error(err);
+        }
+    },
+    async update(req, res) {
+        try {
+            await User.update(req.body);
+            return res.render('users/edit', {
+                user: req.body,
+                success: 'Usuário atualizado com sucesso!'
+            });
+        } catch (err) {
+            console.error(err);
+            return res.render('users/edit', {
+                user: req.body,
+                error: 'Ops, algum erro aconteceu!'
+            });
         }
     }
 }

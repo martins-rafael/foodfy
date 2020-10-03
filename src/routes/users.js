@@ -14,8 +14,9 @@ routes.post('/logout', SessionController.logout);
 
 // User register //
 routes.get('/register', UserController.registerForm);
-routes.post('/', UserValidator.post, UserController.post);
+routes.post('/register', UserValidator.post, UserController.post);
 
 routes.get('/:id/edit', UserValidator.edit, UserController.edit);
+routes.put('/', UserValidator.update, UserController.update);
 
 module.exports = routes;

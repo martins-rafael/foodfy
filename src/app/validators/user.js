@@ -53,7 +53,15 @@ async function edit(req, res, next) {
     next();
 }
 
+function update(req, res, next) {
+    const fillAllFields = checkAllFields(req.body);
+    if(fillAllFields) return res.render('users/edit', fillAllFields);
+
+    next();
+}
+
 module.exports = {
     post,
-    edit
+    edit,
+    update
 };

@@ -18,6 +18,10 @@
             name="email"
             placeholder="Digite o email"
             value="{{user.email}}"
+            {% if user.id %}
+                readonly="true"
+            {% endif %}
+            onblur="Validate.apply(this, 'isEmail')"
         >
     </div>
 </div>
@@ -28,7 +32,7 @@
             <input
                 type="checkbox"
                 name="is_admin"
-                {% if user.is_admin == true %}
+                {% if user.is_admin == "true" %}
                     checked
                 {% endif %}
                 value="true"

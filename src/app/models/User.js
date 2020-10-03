@@ -47,5 +47,21 @@ module.exports = {
         } catch (err) {
             console.error(err);
         }
+    },
+    async update(data){
+        const query = `
+            UPDATE users SET
+                name=($1),
+                is_admin=($2)
+            WHERE id = $3
+        `
+
+        const values = [
+            data.name,
+            data.is_admin || false,
+            data.id
+        ];
+
+        return db.query(query, values);
     }
 }
