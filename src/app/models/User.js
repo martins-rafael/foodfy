@@ -63,5 +63,8 @@ module.exports = {
         ];
 
         return db.query(query, values);
+    },
+    async delete(id) {
+        return await db.query(`DELETE FROM users WHERE id = $1`, [id]);
     }
 }

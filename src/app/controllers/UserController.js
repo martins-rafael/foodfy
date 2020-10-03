@@ -51,7 +51,7 @@ module.exports = {
         try {
             const { user } = req;
             user.is_admin = user.is_admin.toString();
-            
+
             return res.render('users/edit', { user });
         } catch (err) {
             console.error(err);
@@ -70,6 +70,18 @@ module.exports = {
                 user: req.body,
                 error: 'Ops, algum erro aconteceu!'
             });
+        }
+    },
+    async delete(req, res) {
+        try {
+            await User.delete(req.body.id);
+            return res.redirect('users/register');
+        } catch (err) {
+            console.error(err);
+            res.render('users/edit', {
+                user: req.body,
+                error: 'Ops, algum erro aconteceu!'
+            })
         }
     }
 }

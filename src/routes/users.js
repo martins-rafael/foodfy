@@ -18,5 +18,6 @@ routes.post('/register', UserValidator.post, UserController.post);
 
 routes.get('/:id/edit', UserValidator.edit, UserController.edit);
 routes.put('/', UserValidator.update, UserController.update);
+routes.delete('/', UserController.delete);
 
 module.exports = routes;
