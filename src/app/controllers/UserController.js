@@ -4,6 +4,10 @@ const mailer = require('../../lib/mailer');
 const { emailTemplate } = require('../../lib/utils');
 
 module.exports = {
+    async list(req, res) {
+        const users = await User.all();
+        return res.render('users/list', { users });
+    },
     registerForm(req, res) {
         return res.render('users/register');
     },
@@ -75,7 +79,7 @@ module.exports = {
     async delete(req, res) {
         try {
             await User.delete(req.body.id);
-            return res.redirect('users/register');
+            return res.redirect('/admin/users');
         } catch (err) {
             console.error(err);
             res.render('users/edit', {

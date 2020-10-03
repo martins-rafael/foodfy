@@ -1,7 +1,16 @@
 const db = require('../../config/db');
 const { hash } = require('bcryptjs');
+const { all } = require('./Recipe');
 
 module.exports = {
+    async all() {
+        const results = await db.query(`
+        SELECT * FROM users
+        ORDER BY created_at DESC
+        `);
+        
+        return results.rows;
+    },
     async findOne(filters) {
         let query = 'Select * FROM users';
 
@@ -48,7 +57,7 @@ module.exports = {
             console.error(err);
         }
     },
-    async update(data){
+    async update(data) {
         const query = `
             UPDATE users SET
                 name=($1),
