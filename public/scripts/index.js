@@ -66,7 +66,6 @@ const Validate = {
         let results = Validate[func](input.value);
 
         if (results.error) Validate.displayError(input, results.error);
-
     },
     displayError(input, error) {
         const div = document.createElement('div');
@@ -89,4 +88,10 @@ const Validate = {
             value
         };
     }
+}
+
+const formError = document.querySelector('.error.messages');
+if (formError) {
+    const fields = document.querySelectorAll('input');
+    fields.forEach(field => field.style.borderColor = '#ff3131');
 }
