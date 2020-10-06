@@ -1,0 +1,24 @@
+{% extends "templates/layouts/admin.njk" %}
+
+{% block head %}
+    <link rel="stylesheet" href="/styles/admin/forms.css">
+    <title>Minha Conta | Foodfy</title>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <form action="/admin/users/profile?_method=PUT" method="POST">
+            <div class="title">
+                <h2>Bem-vindo {{user.name}}</h2>
+
+                <div>
+                    <button class="btn" type="submit">Salvar</button>
+                </div>
+            </div>
+
+            <div class="fields">
+                {% include "templates/includes/users/profile-fields.njk" %}
+            </div>
+        </form>
+    </div>
+{% endblock %}

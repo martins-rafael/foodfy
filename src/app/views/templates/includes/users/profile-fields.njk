@@ -5,7 +5,7 @@
             type="text"
             name="name"
             placeholder="Digite o nome completo"
-            value={{user.name}}
+            value="{{user.name}}"
         >
     </div>
 </div>
@@ -16,25 +16,19 @@
         <input
             type="email"
             name="email"
-            placeholder="Digite o email"
             value="{{user.email}}"
-            onblur="Validate.apply(this, 'isEmail')"
+            readonly="true"
         >
     </div>
 </div>
 
 <div class="item">
+    <div>Senha</div>
     <div>
-        <li>
-            <input
-                type="checkbox"
-                name="is_admin"
-                {% if user.is_admin == "true" %}
-                    checked
-                {% endif %}
-                value="true"
-            >
-            Administrador
-        </li>
+        <input
+            type="password"
+            name="password"
+            placeholder="Digite sua senha para atualizar seu cadastro"
+        >
     </div>
 </div>

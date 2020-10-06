@@ -30,4 +30,5 @@
     font-weight: bold;
     color: var(--color-danger-red);
     background-color: transparent;
+    cursor: pointer;
 }

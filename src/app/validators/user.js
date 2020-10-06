@@ -13,6 +13,19 @@ function checkAllFields(body) {
     }
 }
 
+async function show(req, res, next) {
+    const { userId: id } = req.session;
+    const user = await User.findOne({ where: { id } });
+
+    if (!user) return res.render('users/register', {
+        error: 'Usuário não encontrado!'
+    });
+
+    req.user = user;
+
+    next();
+}
+
 async function post(req, res, next) {
     try {
         // check if has all fields //
@@ -55,12 +68,13 @@ async function edit(req, res, next) {
 
 function update(req, res, next) {
     const fillAllFields = checkAllFields(req.body);
-    if(fillAllFields) return res.render('users/edit', fillAllFields);
+    if (fillAllFields) return res.render('users/edit', fillAllFields);
 
     next();
 }
 
 module.exports = {
+    show,
     post,
     edit,
     update

@@ -2,6 +2,7 @@ const express = require('express');
 const routes = express.Router();
 
 const SessionController = require('../app/controllers/SessionController');
+const ProfileController = require('../app/controllers/ProfileController');
 const UserController = require('../app/controllers/UserController');
 
 const UserValidator = require('../app/validators/user');
@@ -11,6 +12,9 @@ const SessionValidator = require('../app/validators/session');
 routes.get('/login', SessionController.loginForm);
 routes.post('/login', SessionValidator.login, SessionController.login)
 routes.post('/logout', SessionController.logout);
+
+// Profile //
+routes.get('/profile', UserValidator.show, ProfileController.index);
 
 // Reset Password //
 routes.get('/forgot-password', SessionController.forgotForm);
