@@ -8,7 +8,7 @@ menuItens.forEach(item => {
     }
 });
 
-// Confirm recipe/chef deletion //
+// Confirm recipe/chef/user deletion //
 function confirmDelete(formDelete) {
     formDelete.addEventListener('submit', event => {
         const totalRecipes = document.querySelector('.total-recipes');
@@ -28,6 +28,9 @@ function confirmDelete(formDelete) {
 
 const formDelete = document.querySelector('#form-delete');
 if (formDelete) confirmDelete(formDelete);
+
+const usersFormDelete = document.querySelectorAll('.form-delete');
+usersFormDelete.forEach(form => confirmDelete(form));
 
 const ImageGallery = {
     highlight: document.querySelector('.gallery .highlight > img'),

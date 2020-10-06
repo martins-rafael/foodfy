@@ -19,7 +19,7 @@
                     <p>{{user.email}}</p>
                     <div class="options">
                         <a href="/admin/users/{{user.id}}/edit">Editar</a>
-                        <form id="form-delete" action="/admin/users?_method=DELETE" method="POST">
+                        <form class="form-delete" action="/admin/users?_method=DELETE" method="POST">
                             <input type="hidden" name="id" value="{{user.id}}">
                             <button type="submit">Remover</button>
                         </form>
