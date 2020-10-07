@@ -17,7 +17,7 @@
             type="email"
             name="email"
             value="{{user.email}}"
-            readonly="true"
+            onblur="Validate.apply(this, 'isEmail')"
         >
     </div>
 </div>
