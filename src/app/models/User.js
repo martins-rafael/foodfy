@@ -8,7 +8,7 @@ module.exports = {
         SELECT * FROM users
         ORDER BY created_at DESC
         `);
-        
+
         return results.rows;
     },
     async findOne(filters) {
@@ -57,21 +57,26 @@ module.exports = {
             console.error(err);
         }
     },
-    async update(data) {
-        const query = `
-            UPDATE users SET
-                name=($1),
-                is_admin=($2)
-            WHERE id = $3
-        `
+    async update(id, fields) {
+        let query = 'UPDATE users SET';
 
-        const values = [
-            data.name,
-            data.is_admin || false,
-            data.id
-        ];
+        Object.keys(fields).map((key, index, array) => {
+            if ((index + 1) < array.length) {
+                query = `
+                ${query}
+                ${key} = '${fields[key]}',
+                `;
+            } else {
+                // last iteration
+                query = `
+                ${query}
+                ${key} = '${fields[key]}'
+                WHERE id = ${id}
+                `;
+            }
+        });
 
-        return db.query(query, values);
+        return db.query(query);
     },
     async delete(id) {
         return await db.query(`DELETE FROM users WHERE id = $1`, [id]);

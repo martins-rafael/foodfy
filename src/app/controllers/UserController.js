@@ -63,7 +63,15 @@ module.exports = {
     },
     async update(req, res) {
         try {
-            await User.update(req.body);
+            let { id, name, email, is_admin } = req.body;
+            is_admin = is_admin || false;
+
+            await User.update(id, {
+                name,
+                email,
+                is_admin
+            });
+            
             return res.render('users/edit', {
                 user: req.body,
                 success: 'Usuário atualizado com sucesso!'

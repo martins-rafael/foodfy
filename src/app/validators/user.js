@@ -66,9 +66,21 @@ async function edit(req, res, next) {
     next();
 }
 
-function update(req, res, next) {
+async function update(req, res, next) {
     const fillAllFields = checkAllFields(req.body);
     if (fillAllFields) return res.render('users/edit', fillAllFields);
+
+    const { userId: id } = req.session;
+    const user = await User.findOne({ where: { id } });
+    const { email } = req.body;
+
+    if (email != user.email) {
+        const isNotAvaliable = await User.findOne({ where: { email } });
+        if (isNotAvaliable) return res.render('users/edit', {
+            user: req.body,
+            error: 'Este email já está cadastrado!'
+        });
+    }
 
     next();
 }
