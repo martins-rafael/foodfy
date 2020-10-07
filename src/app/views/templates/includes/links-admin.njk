@@ -8,11 +8,20 @@
             <li><a href="/admin/recipes">Receitas</a></li>
             <li><a href="/admin/chefs">Chefs</a></li>
             <li><a href="/admin/users">Usuários</a></li>
+            
         </div>
-        <li>
-            <form action="/admin/users/logout" method="POST">
-                <button>Sair</button>
-            </form>
-        </li>
+        <div>
+            <li>
+            {% if session.isAdmin %}
+                <p>Admin</p>
+            {% endif %}
+            </li>
+            <li>
+                <form action="/admin/users/logout" method="POST">
+                    <button>Sair</button>
+                </form>
+            </li>
+        </div>
+        
     </ul>
 </nav>

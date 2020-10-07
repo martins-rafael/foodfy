@@ -13,6 +13,7 @@ header.header-admin .container {
 
 .header-admin .links ul {
     grid-template-columns: 1fr 1fr;
+    align-items: center;
 }
 
 .header-admin .links ul .links-wrapper {
@@ -27,11 +28,28 @@ header.header-admin .container {
     color: var(--color-light-gray);
 }
 
-.header-admin .links ul form {
+.header-admin .links ul div:last-of-type {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header-admin .links p {
+    padding: 8px 16px;
+    width: 104px;
+    font-weight: bold;
+    text-align: center;
+    text-transform: uppercase;
+    background-color: var(--color-purple-dark);
+    border-radius: 16px;
+}
+
+.header-admin .links form {
     text-align: end;
 }
 
-.header-admin .links ul button {
+.header-admin .links button {
     font-weight: bold;
     text-transform: uppercase;
     background-color: transparent;
@@ -39,6 +57,7 @@ header.header-admin .container {
 }
 
 .header-admin .links a.active,
+.header-admin .links p,
 .header-admin .links button {
     color: var(--color-white-paper);
 }
