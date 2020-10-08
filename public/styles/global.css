@@ -62,10 +62,6 @@ header .links a {
     transition: .2s;
 }
 
-.links a:hover {
-    font-weight: bold;
-}
-
 .links a::after {
     content: "";
     position: absolute;

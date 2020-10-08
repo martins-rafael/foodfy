@@ -5,23 +5,57 @@
 <nav class="links">
     <ul>
         <div class="links-wrapper">
-            <li><a href="/admin/recipes">Receitas</a></li>
-            <li><a href="/admin/chefs">Chefs</a></li>
-            <li><a href="/admin/users">Usuários</a></li>
-            
+            <li class="user-menu">
+                <a href="/admin/recipes">Receitas</a>
+
+                <ul class="submenu">
+                    <li>
+                        <a href="/admin/recipes/my-recipes">Minhas Receitas</a>
+                    </li>
+                    <li>
+                        <a href="/admin/recipes">Todas Receitas</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="/admin/chefs">Chefs</a>
+            </li>
+            <li class="user-menu">
+                <a href="/admin/users">Usuários</a>
+                
+                <ul class="submenu">
+                    <li>
+                        <a href="/admin/users/profile">Minha Conta</a>
+                    </li>
+                    {% if session.isAdmin %}
+                        <li>
+                            <a href="/admin/users">Todos Usuários</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </li>
         </div>
+
         <div>
             <li>
-            {% if session.isAdmin %}
-                <p>Admin</p>
-            {% endif %}
+                {% if session.isAdmin %}
+                    <p>Admin</p>
+                {% endif %}
             </li>
-            <li>
-                <form action="/admin/users/logout" method="POST">
-                    <button>Sair</button>
-                </form>
+            <li class="user-menu">
+                <a class="active">Sair</a>
+                
+                <ul class="submenu">
+                    <li>
+                        <a href="/">Voltar ao Foodfy</a>
+                    </li>
+                    <li>
+                        <form action="/admin/users/logout" method="POST">
+                            <button>Logout</button>
+                        </form>
+                    </li>
+                </ul>
             </li>
         </div>
-        
     </ul>
 </nav>

@@ -3,10 +3,24 @@
 </div>
 
 <nav class="links">
-    <ul>
-        <li><a href="/about">Sobre</a></li>
-        <li><a href="/recipes">Receitas</a></li>
-        <li><a href="/chefs">Chefs</a></li>
-        <li><a href="/login">Login</a></li>
+    <ul class="links-wrapper">
+        <li>
+            <a href="/about">Sobre</a>
+        </li>
+        <li>
+            <a href="/recipes">Receitas</a>
+        </li>
+        <li>
+            <a href="/chefs">Chefs</a>
+        </li>
+        {% if session.userId %}
+            <li>
+                <a href="/admin/users/profile">Minha Conta</a>
+            </li>
+        {% else %}
+            <li>
+                <a href="/login">Login</a>
+            </li>
+        {% endif %}
     </ul>
 </nav>

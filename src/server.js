@@ -10,6 +10,10 @@ server.use(session);
 server.use(express.urlencoded({ extended: true }));
 server.use(express.static('public'));
 server.use(methodOverride('_method'));
+server.use((req, res, next) => {
+    res.locals.session = req.session;
+    next();
+});
 server.use(routes);
 
 server.set('view engine', 'njk');

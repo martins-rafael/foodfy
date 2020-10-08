@@ -1,3 +1,6 @@
+header .links a:hover {
+    font-weight: bold;
+}
 header .container .filter-form {
     display: grid;
     grid-template-columns: 248px auto;

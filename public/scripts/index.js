@@ -1,6 +1,6 @@
 // Active menu //
 const currentPage = location.pathname;
-const menuItens = document.querySelectorAll('header .links a');
+const menuItens = document.querySelectorAll('header .links-wrapper > li > a');
 
 menuItens.forEach(item => {
     if (currentPage.includes(item.getAttribute('href'))) {

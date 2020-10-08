@@ -23,16 +23,27 @@ header.header-admin .container {
     justify-content: start;
 }
 
-.header-admin .links a {
-    text-transform: uppercase;
-    color: var(--color-light-gray);
-}
-
 .header-admin .links ul div:last-of-type {
     display: grid;
     grid-template-columns: 1fr 1fr;
     align-items: center;
     justify-content: space-between;
+}
+
+.header-admin .links a.active,
+.header-admin .links p {
+    color: var(--color-white-paper);
+}
+
+.header-admin .links a,
+.header-admin .links button {
+    text-transform: uppercase;
+    color: var(--color-light-gray);
+}
+
+.header-admin .links a:hover,
+.header-admin .links button:hover {
+    color: var(--color-white-paper);
 }
 
 .header-admin .links p {
@@ -46,18 +57,38 @@ header.header-admin .container {
 }
 
 .header-admin .links form {
-    text-align: end;
+    text-align: center;
 }
 
 .header-admin .links button {
-    font-weight: bold;
     text-transform: uppercase;
     background-color: transparent;
     cursor: pointer;
 }
 
-.header-admin .links a.active,
-.header-admin .links p,
-.header-admin .links button {
-    color: var(--color-white-paper);
+.header-admin .links .user-menu {
+    position: relative;
+    justify-self: end;
+}
+
+.header-admin .links .user-menu .submenu {
+    position: absolute;
+    top: 32px;
+    left: -4px;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    padding-bottom: 15px;
+    width: 100px;
+    text-align: center;
+    background-color: var(--color-default-black);
+    border-radius: 4px;
+    transition: all .2s;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.header-admin .links .user-menu:hover .submenu {
+    top: 0;
+    opacity: 1;
+    visibility: visible;
 }
