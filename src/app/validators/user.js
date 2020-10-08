@@ -70,9 +70,8 @@ async function update(req, res, next) {
     const fillAllFields = checkAllFields(req.body);
     if (fillAllFields) return res.render('users/edit', fillAllFields);
 
-    const { userId: id } = req.session;
+    const { id, email } = req.body;
     const user = await User.findOne({ where: { id } });
-    const { email } = req.body;
 
     if (email != user.email) {
         const isNotAvaliable = await User.findOne({ where: { email } });
