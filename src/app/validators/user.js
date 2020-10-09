@@ -84,9 +84,21 @@ async function update(req, res, next) {
     next();
 }
 
+async function exclude(req, res, next) {
+    const users = await User.all();
+
+    if (req.session.userId == req.body.id) return res.render('users/list', {
+        users,
+        error: 'Desculpe, você não pode exluir sua própria conta!'
+    });
+
+    next();
+}
+
 module.exports = {
     show,
     post,
     edit,
-    update
+    update,
+    exclude
 };

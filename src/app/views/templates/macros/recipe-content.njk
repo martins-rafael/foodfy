@@ -1,9 +1,11 @@
-{% macro recipe(header, hide, recipe, files) %}
+{% macro recipe(header, hide, recipe, files, session) %}
     <section class="selected container">
         {% if header %}
             <div class="title">
                 <h2>Receita: {{recipe.title}}</h2>
-                <a class="btn" href="/admin/recipes/{{recipe.id}}/edit">Editar receita</a>
+                {% if session.isAdmin or session.userId == recipe.user_id %}
+                    <a class="btn" href="/admin/recipes/{{recipe.id}}/edit">Editar receita</a>
+                {% endif %}
             </div>
         {% endif %}
 

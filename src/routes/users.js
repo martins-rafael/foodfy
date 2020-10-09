@@ -9,7 +9,7 @@ const UserValidator = require('../app/validators/user');
 const ProfileValidator = require('../app/validators/profile');
 const SessionValidator = require('../app/validators/session');
 
-const { onlyUsers, isLoggedRedirectToProfile } = require('../app/middlewares/sessions');
+const { onlyUsers, isAdmin, isLoggedRedirectToProfile } = require('../app/middlewares/sessions');
 
 // Login/logout //
 routes.get('/login', isLoggedRedirectToProfile, SessionController.loginForm);
@@ -25,13 +25,13 @@ routes.get('/forgot-password', SessionController.forgotForm);
 routes.get('/password-reset', SessionController.resetForm);
 
 // User register //
-routes.get('/register', onlyUsers, UserController.registerForm);
-routes.post('/register', onlyUsers, UserValidator.post, UserController.post);
+routes.get('/register', onlyUsers, isAdmin, UserController.registerForm);
+routes.post('/register', onlyUsers, isAdmin, UserValidator.post, UserController.post);
 
 // User management //
-routes.get('/', onlyUsers, UserController.list);
-routes.get('/:id/edit', onlyUsers, UserValidator.edit, UserController.edit);
-routes.put('/', onlyUsers, UserValidator.update, UserController.update);
-routes.delete('/', onlyUsers, UserController.delete);
+routes.get('/', onlyUsers, isAdmin, UserController.list);
+routes.get('/:id/edit', onlyUsers, isAdmin, UserValidator.edit, UserController.edit);
+routes.put('/', onlyUsers, isAdmin, UserValidator.update, UserController.update);
+routes.delete('/', onlyUsers, isAdmin, UserValidator.exclude, UserController.delete);
 
 module.exports = routes;

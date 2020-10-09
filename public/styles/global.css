@@ -202,12 +202,13 @@ button.btn-delete:hover {
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 0 16px;
     width: 344px;
     height: 135px;
     color: #fff;
     border-radius: 4px;
     opacity: 1;
-    animation: hidemessage .4s 3s ease-out forwards;
+    animation: hidemessage .4s 5s ease-out forwards;
 }
 
 .messages.error {
