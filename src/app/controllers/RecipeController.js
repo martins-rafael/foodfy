@@ -27,6 +27,30 @@ module.exports = {
             console.error(err);
         }
     },
+    async recipes(req, res) {
+        try {
+            const results = await Recipe.userRecipes(req.session.userId);
+            const recipes = results.rows;
+
+            async function getImage(recipeId) {
+                let results = await Recipe.files(recipeId);
+                const file = results.rows[0];
+
+                return `${req.protocol}://${req.headers.host}${file.path.replace('public', '')}`;
+            }
+
+            const recipesPromise = recipes.map(async recipe => {
+                recipe.image = await getImage(recipe.id);
+                return recipe;
+            });
+
+            const allRecipes = await Promise.all(recipesPromise);
+
+            return res.render('admin/recipes/index', { recipes: allRecipes });
+        } catch (err) {
+            console.error(err);
+        }
+    },
     async create(req, res) {
         try {
             const results = await Recipe.chefsSelectOptions();
@@ -49,7 +73,11 @@ module.exports = {
             if (req.files.length == 0)
                 return res.send('Por favor, envie pelo menos uma imagem.');
 
-            let results = await Recipe.create(req.body);
+            let results = await Recipe.create({
+                ...req.body,
+                user_id: req.session.userId
+            });
+            
             const recipeId = results.rows[0].id;
 
             const filesPromise = req.files.map(async file => {
