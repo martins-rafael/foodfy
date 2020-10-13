@@ -1,5 +1,9 @@
 # Foodfy
 
+<h4 align="center"> 
+	🚧  Em construção...  🚧
+</h4>
+
 <p>Aprenda a construir os melhores pratos com receitas criadas por profissionais do mundo inteiro.</p>
 
 <p>
