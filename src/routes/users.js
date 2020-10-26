@@ -23,6 +23,8 @@ routes.put('/profile', onlyUsers, ProfileValidator.update, ProfileController.upd
 // Reset Password //
 routes.get('/forgot-password', SessionController.forgotForm);
 routes.get('/password-reset', SessionController.resetForm);
+routes.post('/forgot-password', SessionValidator.forgot, SessionController.forgot);
+routes.post('/password-reset', SessionValidator.reset, SessionController.reset);
 
 // User register //
 routes.get('/register', onlyUsers, isAdmin, UserController.registerForm);
