@@ -25,5 +25,5 @@ nunjucks.configure('src/app/views', {
 });
 
 server.listen(5000, function () {
-    console.log('server is running on port 5000');
+    console.log('server is running on http://localhost:5000/');
 });
