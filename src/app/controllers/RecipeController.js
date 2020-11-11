@@ -1,3 +1,5 @@
+const { unlinkSync } = require('fs');
+
 const Recipe = require('../models/Recipe');
 const File = require('../models/File');
 const RecipeFile = require('../models/RecipeFile');
@@ -79,7 +81,7 @@ module.exports = {
 
             const filesPromise = req.files.map(async file => {
                 const file_id = await File.create({
-                    name: file.name,
+                    name: file.filename,
                     path: file.path
                 });
                 await RecipeFile.create({
@@ -146,7 +148,7 @@ module.exports = {
             if (req.files.length != 0) {
                 const newFilesPromise = req.files.map(async file => {
                     const file_id = await File.create({
-                        name: file.name,
+                        name: file.filename,
                         path: file.path
                     });
                     await RecipeFile.create({
@@ -163,9 +165,12 @@ module.exports = {
                 const lastIndex = removed_files.length - 1;
                 removed_files.splice(lastIndex, 1);
 
-                const removedFilesPromise = removed_files.map(id => {
-                    RecipeFile.delete(id);
-                    File.delete(id);
+                const removedFilesPromise = removed_files.map(async id => {
+                    RecipeFile.delete({ file_id: id });
+                    
+                    const file = await File.findOne({ where: { id } });
+                    File.delete({ id });
+                    unlinkSync(file.path);
                 });
 
                 await Promise.all(removedFilesPromise);
@@ -187,13 +192,15 @@ module.exports = {
     async delete(req, res) {
         try {
             const files = await Recipe.files(req.body.id);
+            
             const deletedFilesPromise = files.map(file => {
-                RecipeFile.delete(file.id);
-                File.deleteFile(file.file_id);
+                RecipeFile.delete({ file_id: file.file_id });
+                File.delete({ id: file.file_id });
+                unlinkSync(file.path);
             });
 
             await Promise.all(deletedFilesPromise);
-            await Recipe.delete(req.body.id);
+            await Recipe.delete({ id: req.body.id });
 
             return res.redirect('/admin');
         } catch (err) {

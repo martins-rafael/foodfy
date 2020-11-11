@@ -1,3 +1,5 @@
+const { unlinkSync } = require('fs');
+
 const Chef = require('../models/Chef');
 const Recipe = require('../models/Recipe');
 const File = require('../models/File');
@@ -8,7 +10,7 @@ module.exports = {
             const chefs = await Chef.all();
 
             async function getImage(file_id) {
-                const file = await Chef.file(file_id);
+                const file = await File.findOne({ where: { id: file_id } });
                 return `${req.protocol}://${req.headers.host}${file.path.replace('public', '')}`;
             }
 
@@ -56,14 +58,13 @@ module.exports = {
 
             if (!chef) return res.send('Chef não encontrado!');
 
-            const file = await Chef.file(chef.file_id);
+            const file = await File.findOne({ where: { id: chef.file_id } });
             chef.file = file;
             chef.file.src = `${req.protocol}://${req.headers.host}${chef.file.path.replace('public', '')}`;
 
             const recipes = await Chef.chefRecipes(chef.id);
 
             async function getImage(recipeId) {
-                console.log(recipeId)
                 const file = await Recipe.files(recipeId);
                 return `${req.protocol}://${req.headers.host}${file[0].path.replace('public', '')}`;
             }
@@ -86,7 +87,7 @@ module.exports = {
 
             if (!chef) return res.send('Chef não encontrado!');
 
-            const file = await Chef.file(chef.file_id);
+            const file = await File.findOne({ where: { id: chef.file_id } });
             file.src = `${req.protocol}://${req.headers.host}${file.path.replace('public', '')}`;
 
             return res.render('admin/chefs/edit', { chef, file });
@@ -121,7 +122,7 @@ module.exports = {
 
             if (removed_files) {
                 const removedFileId = removed_files.replace(',', '');
-                await File.deleteFile(removedFileId);
+                await File.delete({ id: removedFileId });
             }
 
             return res.redirect(`/admin/chefs/${id}`);
@@ -131,8 +132,11 @@ module.exports = {
     },
     async delete(req, res) {
         try {
-            await Chef.delete(req.body.id);
-            await File.deleteFile(req.body.file_id);
+            await Chef.delete({ id: req.body.id });
+
+            const file = await File.findOne({ where: { id: req.body.file_id } });
+            await File.delete({ id: file.id });
+            unlinkSync(file.path);
 
             return res.redirect('/admin/chefs');
         } catch (err) {

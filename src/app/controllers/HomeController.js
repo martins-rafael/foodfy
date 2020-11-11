@@ -1,5 +1,6 @@
 const Recipe = require('../models/Recipe');
 const Chef = require('../models/Chef');
+const File = require('../models/File');
 
 module.exports = {
     async index(req, res) {
@@ -93,7 +94,7 @@ module.exports = {
             const chefs = await Chef.all();
 
             async function getImage(file_id) {
-                const file = await Chef.file(file_id);
+                const file = await File.findOne({ where: { id: file_id } } );
                 return `${req.protocol}://${req.headers.host}${file.path.replace('public', '')}`;
             }
 
@@ -115,7 +116,7 @@ module.exports = {
 
             if (!chef) res.send('Chef não encontrado!');
 
-            const file = await Chef.file(chef.file_id);
+            const file = await File.findOne({ where: { id: chef.file_id } });
             chef.file = file;
             chef.file.src = `${req.protocol}://${req.headers.host}${chef.file.path.replace('public', '')}`;
 

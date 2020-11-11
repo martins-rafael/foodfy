@@ -7,19 +7,34 @@ const Base = {
 
         return this;
     },
+    async findOne(filters) {
+        let query = `SELECT * FROM ${this.table}`;
+
+        Object.keys(filters).map(key => {
+            query += ` ${key}`;
+
+            Object.keys(filters[key]).map(field => {
+                query += ` ${field} = '${filters[key][field]}'`
+            });
+        });
+
+        const results = await db.query(query);
+        return results.rows[0];
+    },
     async create(fields) {
         try {
-            let keys = [], values = [], query =`INSERT INTO ${this.table}`;
+            let keys = [], values = [];
 
             Object.keys(fields).map(key => {
                 keys.push(key);
 
-                (Array.isArray(fields[key]))
+                Array.isArray(fields[key])
                 ? values.push(`'{"${fields[key].join('","')}"}'`)
                 : values.push(`'${fields[key]}'`);
             });
 
-            query += `
+            const query = `
+                INSERT INTO ${this.table}
                 (${keys.join(',')})
                 VALUES(${values.join(',')})
                 RETURNING id
@@ -37,6 +52,7 @@ const Base = {
 
             Object.keys(fields).map(key => {
                 let line;
+
                 Array.isArray(fields[key])
                 ? line = `${key} = '{"${fields[key].join('","')}"}'`
                 : line = `${key} = '${fields[key]}'`;
@@ -54,8 +70,14 @@ const Base = {
             console.error(err);
         }
     },
-    delete(id) {
-        return db.query(`DELETE FROM ${this.table} WHERE id = $1`, [id]);
+    delete(field) {
+        let exclude;
+
+        Object.keys(field).map(key => {
+            exclude = `${key} = '${field[key]}'`;
+        });
+
+        return db.query(`DELETE FROM ${this.table} WHERE ${exclude}`);
     }
 }
 

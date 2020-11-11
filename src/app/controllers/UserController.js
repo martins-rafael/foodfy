@@ -107,7 +107,7 @@ module.exports = {
     },
     async delete(req, res) {
         try {
-            await User.delete(req.body.id);
+            await User.delete({ id: req.body.id });
             return res.redirect('/admin/users');
         } catch (err) {
             console.error(err);

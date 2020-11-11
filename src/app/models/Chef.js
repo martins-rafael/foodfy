@@ -34,9 +34,5 @@ module.exports = {
         GROUP BY chefs.id`, [id]);
 
         return results.rows[0];
-    },
-    async file(id) {
-        const results = await db.query(`SELECT * FROM files WHERE id = $1`, [id]);
-        return results.rows[0];
     }
 };
