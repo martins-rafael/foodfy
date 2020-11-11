@@ -1,7 +1,8 @@
-const User = require('../models/User');
-const { hash } = require('bcryptjs');
-const mailer = require('../../lib/mailer');
 const crypto = require('crypto');
+const { hash } = require('bcryptjs');
+
+const User = require('../models/User');
+const mailer = require('../../lib/mailer');
 const { emailTemplate } = require('../../lib/utils');
 
 module.exports = {
@@ -34,23 +35,23 @@ module.exports = {
             });
 
             const email = `
-        <h2 style="font-size: 24px; font-weight: normal;">Perdeu a chave?</h2>
-        <br>
-        <p>
-            Não se preocupe ${user.name}, com tantas receitas incríveis é normal esquecer a senha ;)
-            <br><br>
-            Clique e botão abaixo e vamos recupera-lá:
-        </p>
-        <p style="text-align: center;">
-            <a
-                style="display: block; margin: 32px auto; padding: 16px; width:150px; color: #fff;
-                background-color: #6558C3; text-decoration: none; border-radius: 4px;"
-                href="http:localhost:5000/admin/users/password-reset?token=${token}" target="_blank"
-            >Recuperar</a> 
-        </p>
-        <p style="padding-top:16px; border-top: 2px solid #ccc">Te esperamos lá!</p>
-        <p>Equipe Foodfy.</p>
-        `;
+            <h2 style="font-size: 24px; font-weight: normal;">Perdeu a chave?</h2>
+            <br>
+            <p>
+                Não se preocupe ${user.name}, com tantas receitas incríveis é normal esquecer a senha ;)
+                <br><br>
+                Clique e botão abaixo e vamos recupera-lá:
+            </p>
+            <p style="text-align: center;">
+                <a
+                    style="display: block; margin: 32px auto; padding: 16px; width:150px; color: #fff;
+                    background-color: #6558C3; text-decoration: none; border-radius: 4px;"
+                    href="http:localhost:5000/admin/users/password-reset?token=${token}" target="_blank"
+                >Recuperar</a> 
+            </p>
+            <p style="padding-top:16px; border-top: 2px solid #ccc">Te esperamos lá!</p>
+            <p>Equipe Foodfy.</p>
+            `;
 
             mailer.sendMail({
                 to: user.email,
@@ -64,7 +65,6 @@ module.exports = {
             });
         } catch (err) {
             console.error(err);
-
             return res.render('session/forgot-password', {
                 error: 'Ops, algo deu errado. Tente novamente!'
             });
@@ -93,7 +93,6 @@ module.exports = {
             
         } catch (err) {
             console.error(err);
-
             return res.render('session/password-reset', {
                 user: req.body,
                 token,

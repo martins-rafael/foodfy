@@ -1,5 +1,7 @@
-const User = require('../models/User');
 const crypto = require('crypto');
+const { hash } = require('bcryptjs');
+
+const User = require('../models/User');
 const mailer = require('../../lib/mailer');
 const { emailTemplate } = require('../../lib/utils');
 
@@ -13,13 +15,17 @@ module.exports = {
     },
     async post(req, res) {
         try {
-            const password = crypto.randomBytes(3).toString('hex');
+            let { name, email, is_admin } = req.body;
+
+            is_admin = is_admin || false;
+
+            const userPassword = crypto.randomBytes(3).toString('hex');
             const welcomeEmail = `
-                <h2 style="font-size: 24px; font-weight: normal;">Olá <strong>${req.body.name}</strong>,</h2>
+                <h2 style="font-size: 24px; font-weight: normal;">Olá <strong>${name}</strong>,</h2>
                 <p>Seja muito bem-vindo(a) ao <strong>Foodfy</strong> :)</p>
                 <p>Seu cadastro foi realizado com sucesso! Confira seus dados:</p>
-                <p>Login: ${req.body.email}</p>
-                <p>Senha: ${password}</p>
+                <p>Login: ${email}</p>
+                <p>Senha: ${userPassword}</p>
                 <br>
                 <h3>Como eu acesso minha Conta?</h3>
                 <p>
@@ -43,8 +49,16 @@ module.exports = {
                 html: emailTemplate(welcomeEmail)
             });
 
-            const data = { ...req.body, password };
-            const userId = await User.create(data);
+            const password = await hash(userPassword, 8);
+
+            const userId = await User.create({
+                name,
+                email,
+                password,
+                is_admin
+            });
+
+            req.session.success = 'Usuário cadastrado com sucesso!';
 
             return res.redirect(`/admin/users/${userId}/edit`);
         } catch (err) {
@@ -55,6 +69,13 @@ module.exports = {
         try {
             const { user } = req;
             user.is_admin = user.is_admin.toString();
+
+            const { success } = req.session;
+            if(success) {
+                res.render('users/edit', { user, success });
+                req.session.success = '';
+                return
+            }
 
             return res.render('users/edit', { user });
         } catch (err) {
@@ -71,7 +92,7 @@ module.exports = {
                 email,
                 is_admin
             });
-            
+
             return res.render('users/edit', {
                 user: req.body,
                 success: 'Usuário atualizado com sucesso!'
@@ -93,7 +114,7 @@ module.exports = {
             res.render('users/edit', {
                 user: req.body,
                 error: 'Ops, algum erro aconteceu!'
-            })
+            });
         }
     }
 }

@@ -1,83 +1,43 @@
-const { date } = require('../../lib/utils');
 const db = require('../../config/db');
+const Base = require('./Base');
+
+Base.init({ table: 'recipes' });
 
 module.exports = {
-    all() {
-        return db.query(`
+    ...Base,
+    async all() {
+        const results = await db.query(`
         SELECT recipes.*, chefs.name AS chef_name
         FROM recipes
         LEFT JOIN chefs ON (recipes.chef_id = chefs.id)
-        ORDER BY created_at DESC
-        `);
+        ORDER BY created_at DESC`);
+
+        return results.rows;
     },
-    userRecipes(id){
-        return db.query(`
+    async userRecipes(id) {
+        const results = await db.query(`
         SELECT recipes.*, chefs.name AS chef_name
         FROM recipes
         LEFT JOIN chefs ON (recipes.chef_id = chefs.id)
         WHERE user_id = $1
         ORDER BY created_at DESC`, [id]);
-    },
-    chefsSelectOptions() {
-        return db.query(`SELECT id, name FROM chefs`);
-    },
-    create(data) {
-        const query = `
-        INSERT INTO recipes (
-            chef_id,
-            user_id,
-            title,
-            ingredients,
-            preparation,
-            information
-        ) VALUES ($1, $2, $3, $4, $5, $6)
-        RETURNING id
-        `;
 
-        const values = [
-            data.chef,
-            data.user_id,
-            data.title,
-            data.ingredients,
-            data.preparation,
-            data.information,
-        ];
-
-        return db.query(query, values);
+        return results.rows;
     },
-    find(id) {
-        return db.query(`
+    async chefsSelectOptions() {
+        const results = await db.query(`SELECT id, name FROM chefs`);
+        return results.rows;
+    },
+    async find(id) {
+        const results = await db.query(`
         SELECT recipes.*, chefs.name AS chef_name
         FROM recipes
         LEFT JOIN chefs ON (recipes.chef_id = chefs.id)
         WHERE recipes.id = $1`, [id]);
-    },
-    update(data) {
-        const query = `
-        UPDATE recipes SET
-            chef_id=($1),
-            title=($2),
-            ingredients=($3),
-            preparation=($4),
-            information=($5)
-        WHERE id = $6
-        `;
 
-        const values = [
-            data.chef,
-            data.title,
-            data.ingredients,
-            data.preparation,
-            data.information,
-            data.id
-        ];
-
-        return db.query(query, values);
+        return results.rows[0];
     },
-    delete(id) {
-        return db.query(`DELETE FROM recipes WHERE id = $1`, [id]);
-    },
-    recipes(params) {
+    async recipes(params) {
         let { search, limit, offset } = params;
         let query = '',
             filterQuery = '',
@@ -108,14 +68,17 @@ module.exports = {
         LIMIT $1 OFFSET $2
         `;
 
-        return db.query(query, [limit, offset]);
+        const results = await db.query(query, [limit, offset]);
+        return results.rows;
     },
-    files(id) {
-        return db.query(`
+    async files(id) {
+        const results = await db.query(`
         SELECT recipe_files.*,
         files.name AS name, files.path AS path, files.id AS file_id
         FROM recipe_files
         LEFT JOIN files ON (recipe_files.file_id = files.id)
         WHERE recipe_files.recipe_id = $1`, [id]);
+
+        return results.rows;
     }
 };

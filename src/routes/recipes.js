@@ -8,7 +8,7 @@ const { onlyUsers, isCreator } = require('../app/middlewares/sessions');
 
 // Recipes Admin //
 routes.get('/', onlyUsers, RecipeController.index);
-routes.get('/my-recipes', onlyUsers, RecipeController.recipes);
+routes.get('/my-recipes', onlyUsers, RecipeController.userRecipes);
 routes.get('/create', onlyUsers, RecipeController.create);
 routes.get('/:id', onlyUsers, RecipeController.show);
 routes.get('/:id/edit', onlyUsers, isCreator, RecipeController.edit);

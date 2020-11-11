@@ -9,16 +9,18 @@ const Base = {
     },
     async create(fields) {
         try {
-            let keys = [],
-                values = [];
+            let keys = [], values = [], query =`INSERT INTO ${this.table}`;
 
             Object.keys(fields).map(key => {
                 keys.push(key);
-                values.push(`'${fields[key]}'`);
+
+                (Array.isArray(fields[key]))
+                ? values.push(`'{"${fields[key].join('","')}"}'`)
+                : values.push(`'${fields[key]}'`);
             });
 
-            const query = `
-                INSERT INTO ${this.table} (${keys.join(',')})
+            query += `
+                (${keys.join(',')})
                 VALUES(${values.join(',')})
                 RETURNING id
             `;
@@ -34,7 +36,10 @@ const Base = {
             let update = [];
 
             Object.keys(fields).map(key => {
-                const line = `${key} = '${fields[key]}'`;
+                let line;
+                Array.isArray(fields[key])
+                ? line = `${key} = '{"${fields[key].join('","')}"}'`
+                : line = `${key} = '${fields[key]}'`;
                 update.push(line);
             });
 

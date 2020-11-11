@@ -5,13 +5,10 @@ const File = require('../models/File');
 module.exports = {
     async index(req, res) {
         try {
-            const results = await Chef.all();
-            const chefs = results.rows;
+            const chefs = await Chef.all();
 
             async function getImage(file_id) {
-                let results = await Chef.file(file_id);
-                const file = results.rows[0];
-
+                const file = await Chef.file(file_id);
                 return `${req.protocol}://${req.headers.host}${file.path.replace('public', '')}`;
             }
 
@@ -42,12 +39,11 @@ module.exports = {
             if (req.files.length == 0)
                 return res.send('Por favor, envie uma imagem.');
 
-            let results = await File.create(req.files[0]);
-            const file_id = results.rows[0].id;
+            const { filename, path } = req.files[0];
+            const file_id = await File.create({ name: filename, path });
 
-            const data = { ...req.body, file_id };
-            results = await Chef.create(data);
-            const chefId = results.rows[0].id;
+            const { name } = req.body;
+            const chefId = await Chef.create({ name, file_id });
 
             return res.redirect(`/admin/chefs/${chefId}`);
         } catch (err) {
@@ -56,23 +52,20 @@ module.exports = {
     },
     async show(req, res) {
         try {
-            let results = await Chef.find(req.params.id);
-            const chef = results.rows[0];
+            const chef = await Chef.find(req.params.id);
 
             if (!chef) return res.send('Chef não encontrado!');
 
-            results = await Chef.file(chef.file_id);
-            chef.file = { ...results.rows[0] };
+            const file = await Chef.file(chef.file_id);
+            chef.file = file;
             chef.file.src = `${req.protocol}://${req.headers.host}${chef.file.path.replace('public', '')}`;
 
-            results = await Chef.chefRecipes(chef.id);
-            const recipes = results.rows;
+            const recipes = await Chef.chefRecipes(chef.id);
 
             async function getImage(recipeId) {
-                let results = await Recipe.files(recipeId);
-                const file = results.rows[0];
-
-                return `${req.protocol}://${req.headers.host}${file.path.replace('public', '')}`;
+                console.log(recipeId)
+                const file = await Recipe.files(recipeId);
+                return `${req.protocol}://${req.headers.host}${file[0].path.replace('public', '')}`;
             }
 
             const recipesPromise = recipes.map(async recipe => {
@@ -89,13 +82,11 @@ module.exports = {
     },
     async edit(req, res) {
         try {
-            let results = await Chef.find(req.params.id);
-            const chef = results.rows[0];
+            const chef = await Chef.find(req.params.id);
 
             if (!chef) return res.send('Chef não encontrado!');
 
-            results = await Chef.file(chef.file_id);
-            const file = { ...results.rows[0] };
+            const file = await Chef.file(chef.file_id);
             file.src = `${req.protocol}://${req.headers.host}${file.path.replace('public', '')}`;
 
             return res.render('admin/chefs/edit', { chef, file });
@@ -118,22 +109,22 @@ module.exports = {
             let file_id;
 
             if (req.files.length != 0) {
-                const results = await File.create(req.files[0]);
-                file_id = results.rows[0].id;
+                const { filename, path } = req.files[0];
+                file_id = await File.create({ name: filename, path });
             }
 
-            const data = {
-                ...req.body,
+            const { id, name, removed_files } = req.body;
+            await Chef.update(id, {
+                name,
                 file_id: file_id || req.body.file_id
-            };
-            await Chef.update(data);
+            });
 
-            if (req.body.removed_files) {
-                const removedFileId = req.body.removed_files.replace(',', '');
-                await File.delete(removedFileId);
+            if (removed_files) {
+                const removedFileId = removed_files.replace(',', '');
+                await File.deleteFile(removedFileId);
             }
 
-            return res.redirect(`/admin/chefs/${req.body.id}`);
+            return res.redirect(`/admin/chefs/${id}`);
         } catch (err) {
             console.error(err);
         }
@@ -141,7 +132,7 @@ module.exports = {
     async delete(req, res) {
         try {
             await Chef.delete(req.body.id);
-            await File.delete(req.body.file_id);
+            await File.deleteFile(req.body.file_id);
 
             return res.redirect('/admin/chefs');
         } catch (err) {

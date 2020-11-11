@@ -3,7 +3,7 @@ const User = require('../models/User');
 module.exports = {
     index(req, res) {
         const { user } = req;
-        const error = req.session.error;
+        const { error } = req.session;
 
         if (error) {
             res.render('users/index', { user, error });
