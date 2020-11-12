@@ -7,6 +7,17 @@ const Chef = require('./src/app/models/Chef');
 const Recipe = require('./src/app/models/Recipe');
 const RecipeFile = require('./src/app/models/RecipeFile');
 
+function createFiles(num, placeholder) {
+    const files = [];
+    while (files.length < num) {
+        files.push({
+            name: faker.image.image(),
+            path: `public/images/${placeholder}.png`
+        });
+    }
+    return files;
+}
+
 let totalUsers = 6,
     totalChefs = 8,
     totalRecipes = 9,
@@ -31,16 +42,8 @@ async function createUsers() {
 }
 
 async function createChefs() {
-    const files = [];
     const chefs = [];
-
-    while (files.length < totalChefs) {
-        files.push({
-            name: faker.image.image(),
-            path: 'public/images/chef_placeholder.png'
-        });
-    }
-
+    const files = createFiles(totalChefs, 'chef_placeholder');
     const filesPromise = files.map(file => File.create(file));
     const filesId = await Promise.all(filesPromise);
 
@@ -62,7 +65,7 @@ async function createRecipes() {
         const preparation = [];
 
         for (let i = 0; i < 5; i++) {
-            ingredients.push(faker.lorem.words(Math.ceil(Math.random() * 4)));
+            ingredients.push(faker.lorem.words(Math.ceil(Math.random() * 6)));
             preparation.push(faker.lorem.words(Math.ceil(Math.random() * 6)));
         }
 
@@ -80,15 +83,7 @@ async function createRecipes() {
         const recipesPromise = recipes.map(recipe => Recipe.create(recipe));
         const recipesId = await Promise.all(recipesPromise);
 
-        const files = [];
-
-        while (files.length < 45) {
-            files.push({
-                name: faker.image.image(),
-                path: 'public/images/recipe_placeholder.png'
-            });
-        }
-
+        const files = createFiles(45, 'recipe_placeholder');
         const filesPromise = files.map(file => File.create(file));
         const filesId = await Promise.all(filesPromise);
 
@@ -98,7 +93,6 @@ async function createRecipes() {
             recipeImageLimit = 5;
 
         while (recipeFiles.length < 45) {
-
             for (let i = 0; i < recipeImageLimit; i++) {
                 recipeFiles.push({
                     recipe_id: recipesId[recipeIndex],
@@ -107,7 +101,6 @@ async function createRecipes() {
 
                 fileIndex++;
             }
-
             recipeIndex--;
         }
 
@@ -118,7 +111,6 @@ async function createRecipes() {
     } catch (error) {
         console.error(error);
     }
-
 }
 
 async function init() {
