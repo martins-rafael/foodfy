@@ -25,7 +25,7 @@
         <form id="form-delete" action="/admin/chefs?_method=DELETE" method="POST">
             <div class="total-recipes" data-total={{chef.total_recipes}}></div>
             <input type="hidden" name="id" value={{chef.id}}>
-            <input type="hidden" name="file_id" value="{{file.id}}">
+            <input type="hidden" name="file_id" value="{{chef.file.id}}">
         </form>
     </section>
 {% endblock %}

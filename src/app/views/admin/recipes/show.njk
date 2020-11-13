@@ -7,5 +7,5 @@
 {% endblock %}
 
 {% block content %}
-    {{ recipeContent.recipe("header", "", recipe, files, session) }}
+    {{ recipeContent.render(recipe, "", session, "admin") }}
 {% endblock %}

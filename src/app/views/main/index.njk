@@ -28,7 +28,9 @@
         <h2>Mais acessadas</h2>
 
         <div class="recipe-container">
-            {% include "templates/includes/recipes/recipe-card.njk" %}
+            {% for recipe in recipes %}
+                {% include "templates/includes/recipes/recipe-card.njk" %}
+            {% endfor %}
         </div>
     </section>
 {% endblock %}

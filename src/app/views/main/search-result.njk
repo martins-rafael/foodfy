@@ -14,7 +14,9 @@
         <h2>Buscando por "{{search}}"</h2>
         
         <div class="recipe-container">
-            {% include "templates/includes/recipes/recipe-card.njk" %}
+            {% for recipe in recipes %}
+                {% include "templates/includes/recipes/recipe-card.njk" %}
+            {% endfor %}
         </div>
         
         {% include "templates/includes/recipes/pagination.njk" %}

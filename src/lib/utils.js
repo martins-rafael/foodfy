@@ -1,3 +1,5 @@
+const Recipe = require("../app/models/Recipe");
+
 module.exports = {
     emailTemplate(content) {
         return `
@@ -36,5 +38,13 @@ module.exports = {
             </table>
         </body>
         `;
+    },
+    async getImages(recipeId) {
+        let files = await Recipe.files(recipeId);
+        files = files.map(file => ({
+            ...file,
+            src: `${file.path.replace('public', '')}`
+        }));
+        return files;
     }
 };

@@ -12,7 +12,9 @@
 {% block content %}
     <section class="container">
         <div class="recipe-container">
-            {% include "templates/includes/recipes/recipe-card.njk" %}
+            {% for recipe in recipes %}
+                {% include "templates/includes/recipes/recipe-card.njk" %}
+            {% endfor %}
         </div>
          
         {% include "templates/includes/recipes/pagination.njk" %}

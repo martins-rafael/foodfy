@@ -8,15 +8,15 @@
                 name="photos"
                 multiple
                 accept="image/*"
-                {% if not files %} required {% endif %}
+                {% if not recipe.files %} required {% endif %}
                 onchange="PhotosUpload.handleFileInput(event, 5)"
             >
             <i class="material-icons">add</i>
         </div>
 
         <div id="photos-preview">
-            {% if files %}
-                {% for image in files%}
+            {% if recipe.files %}
+                {% for image in recipe.files%}
                     <div class="photo" id="{{image.file_id}}">
                         <img src="{{image.src}}" alt="{{image.name}}">
                         <i

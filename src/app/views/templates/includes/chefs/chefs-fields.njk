@@ -19,16 +19,16 @@
                 type="file"
                 name="photos"
                 accept="images/*"
-                {% if not file %} required {% endif %}
+                {% if not chef.file %} required {% endif %}
                 onchange="PhotosUpload.handleFileInput(event, 1)"
             >
             <i class="material-icons">add</i>
         </div>
 
         <div id="photos-preview">
-            {% if file %}
-                <div class="photo" id="{{file.id}}">
-                    <img src="{{file.src}}" alt="{{file.name}}">
+            {% if chef.file %}
+                <div class="photo" id="{{chef.file.id}}">
+                    <img src="{{chef.file.src}}" alt="{{chef.file.name}}">
                     <i
                         class="material-icons"
                         onclick="PhotosUpload.removeOldPhoto(event)"
@@ -36,7 +36,7 @@
                 </div>
                 
                 <input type="hidden" name="removed_files">
-                <input type="hidden" name="file_id" value="{{file.id}}">
+                <input type="hidden" name="file_id" value="{{chef.file.id}}">
             {% endif %}
         </div>
     </div>

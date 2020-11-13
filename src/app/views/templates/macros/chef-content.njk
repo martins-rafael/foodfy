@@ -1,6 +1,6 @@
-{% macro chef(header, chef, recipes, admin, session) %}
+{% macro render(chef, session, admin) %}
     <section class="selected container">
-        {% if header %}
+        {% if admin %}
             <div class="title">
                 <h2>Chef: {{chef.name}}</h2>
                 {% if session.isAdmin %}
@@ -24,7 +24,7 @@
             </div>
 
             <div class="recipe-container">
-                {% for recipe in recipes %}
+                {% for recipe in chef.recipes %}
                     {% include "templates/includes/recipes/recipe-card.njk" %}
                 {% endfor %}
             </div>

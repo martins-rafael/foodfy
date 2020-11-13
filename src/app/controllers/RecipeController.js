@@ -3,46 +3,21 @@ const { unlinkSync } = require('fs');
 const Recipe = require('../models/Recipe');
 const File = require('../models/File');
 const RecipeFile = require('../models/RecipeFile');
+const loadRecipeService = require('../services/LoadRecipeService');
 
 module.exports = {
     async index(req, res) {
         try {
-            const recipes = await Recipe.all();
-
-            async function getImage(recipeId) {
-                const file = await Recipe.files(recipeId);
-                return `${req.protocol}://${req.headers.host}${file[0].path.replace('public', '')}`;
-            }
-
-            const recipesPromise = recipes.map(async recipe => {
-                recipe.image = await getImage(recipe.id);
-                return recipe;
-            });
-
-            const allRecipes = await Promise.all(recipesPromise);
-
-            return res.render('admin/recipes/index', { recipes: allRecipes });
+            const recipes = await loadRecipeService.load('recipes');
+            return res.render('admin/recipes/index', { recipes });
         } catch (err) {
             console.error(err);
         }
     },
     async userRecipes(req, res) {
         try {
-            const recipes = await Recipe.userRecipes(req.session.userId);
-
-            async function getImage(recipeId) {
-                const file = await Recipe.files(recipeId);
-                return `${req.protocol}://${req.headers.host}${file[0].path.replace('public', '')}`;
-            }
-
-            const recipesPromise = recipes.map(async recipe => {
-                recipe.image = await getImage(recipe.id);
-                return recipe;
-            });
-
-            const allRecipes = await Promise.all(recipesPromise);
-
-            return res.render('admin/recipes/index', { recipes: allRecipes });
+            const recipes = await loadRecipeService.load('userRecipes', req.session.userId);
+            return res.render('admin/recipes/index', { recipes });
         } catch (err) {
             console.error(err);
         }
@@ -99,36 +74,19 @@ module.exports = {
     },
     async show(req, res) {
         try {
-            const recipe = await Recipe.find(req.params.id);
-
+            const recipe = await loadRecipeService.load('recipe', req.params.id);
             if (!recipe) return res.send('Receita não encontrada!');
-
-            let files = await Recipe.files(recipe.id);
-            files = files.map(file => ({
-                ...file,
-                src: `${req.protocol}://${req.headers.host}${file.path.replace('public', '')}`
-            }));
-
-            return res.render('admin/recipes/show', { recipe, files });
+            return res.render('admin/recipes/show', { recipe });
         } catch (err) {
             console.error(err);
         }
     },
     async edit(req, res) {
         try {
-            const recipe = await Recipe.find(req.params.id);
-
+            const recipe = await loadRecipeService.load('recipe', req.params.id);
             if (!recipe) return res.send('Receita não encontrada!');
-
             const chefsOptions = await Recipe.chefsSelectOptions();
-
-            let files = await Recipe.files(recipe.id);
-            files = files.map(file => ({
-                ...file,
-                src: `${req.protocol}://${req.headers.host}${file.path.replace('public', '')}`
-            }));
-
-            return res.render('admin/recipes/edit', { recipe, chefsOptions, files });
+            return res.render('admin/recipes/edit', { recipe, chefsOptions });
         } catch (err) {
             console.error(err);
         }

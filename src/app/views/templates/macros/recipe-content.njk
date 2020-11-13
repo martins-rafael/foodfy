@@ -1,6 +1,6 @@
-{% macro recipe(header, hide, recipe, files, session) %}
+{% macro render(recipe, hide, session, admin) %}
     <section class="selected container">
-        {% if header %}
+        {% if admin %}
             <div class="title">
                 <h2>Receita: {{recipe.title}}</h2>
                 {% if session.isAdmin or session.userId == recipe.user_id %}
@@ -11,14 +11,14 @@
 
         <div class="gallery">
             <div class="highlight">
-                {% if not files[0] %}
+                {% if not recipe.files[0] %}
                     <img src="http://placehold.it/940x280?text=Receita sem foto" alt="Imagem da receita">
                 {% else %}
-                    <img src="{{files[0].src}}" alt="Imagem de {{recipe.title}}" onclick="Lightbox.open()">
+                    <img src="{{recipe.files[0].src}}" alt="Imagem de {{recipe.title}}" onclick="Lightbox.open()">
                 {% endif %}
 
                 <div class="lightbox-target">
-                    <img src="{{files[0].src}}" alt="Imagem de {{recipe.title}}">
+                    <img src="{{recipe.files[0].src}}" alt="Imagem de {{recipe.title}}">
                     <a
                         href="#"
                         class="lightbox-close"
@@ -30,7 +30,7 @@
             </div>
 
             <div class="gallery-preview">
-                {% for image in files %}
+                {% for image in recipe.files %}
                     <img
                         src="{{image.src}}"
                         alt="Imagem de {{recipe.title}}"

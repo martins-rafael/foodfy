@@ -1,26 +1,12 @@
-const Recipe = require('../models/Recipe');
-const Chef = require('../models/Chef');
-const File = require('../models/File');
+const loadRecipeService = require('../services/LoadRecipeService');
+const loadChefService = require('../services/LoadChefService');
 
 module.exports = {
     async index(req, res) {
         try {
-            const recipes = await Recipe.all();
+            const recipes = await loadRecipeService.load('recipes');
             recipes.splice(6, recipes.length);
-
-            async function getImage(recipeId) {
-                const file = await Recipe.files(recipeId);
-                return `${req.protocol}://${req.headers.host}${file[0].path.replace('public', '')}`;
-            }
-
-            const recipesPromise = recipes.map(async recipe => {
-                recipe.image = await getImage(recipe.id);
-                return recipe;
-            });
-
-            const allRecipes = await Promise.all(recipesPromise);
-
-            return res.render('main/index', { recipes: allRecipes });
+            return res.render('main/index', { recipes });
         } catch (err) {
             console.error(err);
         }
@@ -41,100 +27,44 @@ module.exports = {
                 offset,
             };
 
-            const recipes = await Recipe.recipes(params);
-
-            async function getImage(recipeId) {
-                const file = await Recipe.files(recipeId);
-                return `${req.protocol}://${req.headers.host}${file[0].path.replace('public', '')}`;
-            }
-
-            const recipesPromise = recipes.map(async recipe => {
-                recipe.image = await getImage(recipe.id);
-                return recipe;
-            });
-
-            const allRecipes = await Promise.all(recipesPromise);
-
+            const recipes = await loadRecipeService.load('recipes', params);
             const pagination = { page };
 
-            if (recipes.length == 0) {
-                pagination.total = 1;
-            } else {
-                pagination.total = Math.ceil(recipes[0].total / limit);
-            }
+            recipes.length == 0
+            ? pagination.total = 1
+            : pagination.total = Math.ceil(recipes[0].total / limit);
 
             if (search) return res.render('main/search-result', { 
-                recipes: allRecipes, search, pagination 
+                recipes, search, pagination 
             });
 
-            return res.render('main/recipes', { recipes: allRecipes, pagination });
+            return res.render('main/recipes', { recipes, pagination });
         } catch (err) {
             console.error(err);
         }
     },
     async showRecipe(req, res) {
         try {
-            const recipe = await Recipe.find(req.params.id);
-
+            const recipe = await loadRecipeService.load('recipe', req.params.id);
             if (!recipe) return res.send('Receita não encontrada!');
-
-            let files = await Recipe.files(recipe.id);
-            files = files.map(file => ({
-                ...file,
-                src: `${req.protocol}://${req.headers.host}${file.path.replace('public', '')}`
-            }));
-
-            return res.render('main/recipe-page', { recipe, files });
+            return res.render('main/recipe-page', { recipe });
         } catch (err) {
             console.error(err);
         }
     },
     async chefs(req, res) {
         try {
-            const chefs = await Chef.all();
-
-            async function getImage(file_id) {
-                const file = await File.findOne({ where: { id: file_id } } );
-                return `${req.protocol}://${req.headers.host}${file.path.replace('public', '')}`;
-            }
-
-            const chefsPromise = chefs.map(async chef => {
-                chef.image = await getImage(chef.file_id);
-                return chef;
-            });
-
-            const allChefs = await Promise.all(chefsPromise);
-
-            return res.render('main/chefs', { chefs: allChefs });
+            const chefs = await loadChefService.load('chefs')
+            return res.render('main/chefs', { chefs });
         } catch (err) {
             console.error(err);
         }
     },
     async showChef(req, res) {
         try {
-            const chef = await Chef.find(req.params.id);
-
+            const chef = await loadChefService.load('chef', req.params.id);
             if (!chef) res.send('Chef não encontrado!');
-
-            const file = await File.findOne({ where: { id: chef.file_id } });
-            chef.file = file;
-            chef.file.src = `${req.protocol}://${req.headers.host}${chef.file.path.replace('public', '')}`;
-
-            const recipes = await Chef.chefRecipes(req.params.id);
-
-            async function getImage(recipeId) {
-                const files = await Recipe.files(recipeId);
-                return `${req.protocol}://${req.headers.host}${files[0].path.replace('public', '')}`;
-            }
-
-            const recipesPromise = recipes.map(async recipe => {
-                recipe.image = await getImage(recipe.id);
-                return recipe;
-            });
-
-            const allChefRecipes = await Promise.all(recipesPromise);
-
-            return res.render('main/chef-profile', { chef, recipes: allChefRecipes });
+            return res.render('main/chef-profile', { chef });
         } catch (err) {
             console.error(err);
         }

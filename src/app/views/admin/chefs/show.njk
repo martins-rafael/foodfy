@@ -8,5 +8,5 @@
 {% endblock %}
 
 {% block content %}
-    {{ chefContent.chef("header", chef, recipes, "admin", session) }}
+    {{ chefContent.render(chef, session, "admin") }}
 {% endblock %}
