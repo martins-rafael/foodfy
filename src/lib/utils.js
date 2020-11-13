@@ -10,7 +10,7 @@ module.exports = {
                         <img
                             style="display:block;"
                             alt="Logo Foodfy"
-                            src="https://raw.githubusercontent.com/martins-rafael/foodfy/master/public/images/logo_admin.png"
+                            src="https://raw.githubusercontent.com/martins-rafael/foodfy/master/public/assets/logo_admin.png"
                         />
                     </td>
                 </tr>
@@ -46,5 +46,17 @@ module.exports = {
             src: `${file.path.replace('public', '')}`
         }));
         return files;
+    },
+    checkAllFields(body) {
+        const keys = Object.keys(body);
+    
+        for (let key of keys) {
+            if (body[key] == '' & key != 'removed_files') {
+                return {
+                    user: body,
+                    error: 'Por favor, preencha todos os campos!'
+                };
+            }
+        }
     }
 };

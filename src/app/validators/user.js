@@ -1,17 +1,5 @@
 const User = require('../models/User');
-
-function checkAllFields(body) {
-    const keys = Object.keys(body);
-
-    for (let key of keys) {
-        if (body[key] == '') {
-            return {
-                user: body,
-                error: 'Por favor, preencha todos os campos!'
-            };
-        }
-    }
-}
+const { checkAllFields } = require('../../lib/utils');
 
 async function show(req, res, next) {
     const { userId: id } = req.session;

@@ -196,7 +196,7 @@ button.btn-delete:hover {
 }
 
 .messages {
-    position: absolute;
+    position: fixed;
     top: 16px;
     right: 16px;
     display: flex;

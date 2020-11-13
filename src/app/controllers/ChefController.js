@@ -18,16 +18,6 @@ module.exports = {
     },
     async post(req, res) {
         try {
-            const keys = Object.keys(req.body);
-
-            for (let key of keys) {
-                if (req.body[key] == '')
-                    return res.send('Por favor, preencha todos os campos.');
-            };
-
-            if (req.files.length == 0)
-                return res.send('Por favor, envie uma imagem.');
-
             const { filename, path } = req.files[0];
             const file_id = await File.create({ name: filename, path });
 
@@ -59,16 +49,6 @@ module.exports = {
     },
     async put(req, res) {
         try {
-            const keys = Object.keys(req.body);
-
-            for (let key of keys) {
-                if (req.body[key] == '' & key != 'removed_files')
-                    return res.send('Por favor, preencha todos os campos.');
-            };
-
-            if (req.body.removed_files && req.files == 0)
-                return res.send('Por favor, envie uma imagem.');
-
             let file_id;
 
             if (req.files.length != 0) {

@@ -5,6 +5,11 @@ const User = require('../models/User');
 async function login(req, res, next) {
     const { email, password } = req.body;
 
+    if (!email || !password) return res.render('session/login', {
+        user: req.body,
+        error: 'Por favor, entre com seu email e senha.'
+    });
+
     const mailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     if (!email.match(mailFormat)) return res.render('session/login', {
         user: req.body,

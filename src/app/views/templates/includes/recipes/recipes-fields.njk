@@ -38,7 +38,7 @@
         <input
             type="text"
             name="title"
-            required
+        
             value="{{recipe.title}}"
         >
     </div>
@@ -47,7 +47,7 @@
 <div class="item">
     <div>Chef</div>
     <div>
-        <select name="chef" required>
+        <select name="chef">
             <option disabled selected value>Selecione um chef</option>
             {% for chef in chefsOptions %}
                 <option
@@ -68,7 +68,7 @@
             <input
                 type="text"
                 name="ingredients[]"
-                required
+            
                 value="{{ingredient}}"
             >
         </div>
@@ -77,7 +77,7 @@
             <input
                 type="text"
                 name="ingredients[]"
-                required
+            
             >
         </div>
     {% endfor %}
@@ -92,7 +92,7 @@
             <input
                 type="text"
                 name="preparation[]"
-                required
+            
                 value="{{preparation}}"
             >
         </div>
@@ -101,7 +101,7 @@
             <input
                 type="text"
                 name="preparation[]"
-                required
+            
             >
         </div>
     {% endfor %}
@@ -112,6 +112,6 @@
 <div class="item">
     <div>informações adicionais</div>
     <div>
-        <textarea name="information" required>{{recipe.information}}</textarea>
+        <textarea name="information">{{recipe.information}}</textarea>
     </div>
 </div>

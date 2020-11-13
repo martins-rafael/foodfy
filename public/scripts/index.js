@@ -77,8 +77,11 @@ const Validate = {
         input.parentNode.appendChild(div);
     },
     clearErrors(input) {
-        const errorDiv = input.parentNode.querySelector('.error');
+        let errorDiv;
+        const formErrors = document.querySelectorAll('.error.messages');
+        if (input) errorDiv = input.parentNode.querySelector('.error');
         if (errorDiv) errorDiv.remove();
+        if (formErrors) formErrors.forEach(error => error.remove());
     },
     isEmail(value) {
         let error = null;
@@ -90,6 +93,23 @@ const Validate = {
             error,
             value
         };
+    },
+    allFields(event) {
+        Validate.clearErrors();
+
+        const items = document.querySelectorAll('.item input, .item select, .item textarea');
+        items.forEach(item => {
+            item.style.borderColor = '#ddd';
+            if (item.value == '' && item.name != 'removed_files' && item.type != 'file') {
+                const message = document.createElement('div');
+                message.classList.add('messages');
+                message.classList.add('error');
+                message.innerHTML = 'Por favor, preencha todos os campos.';
+                document.querySelector('body').appendChild(message);
+                item.style.borderColor = '#ff3131';
+                event.preventDefault();
+            }
+        });
     }
 }
 
