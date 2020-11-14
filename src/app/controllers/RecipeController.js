@@ -133,10 +133,7 @@ module.exports = {
     async delete(req, res) {
         try {
             const files = await Recipe.files(req.body.id);
-            
             const deletedFilesPromise = files.map(file => {
-                RecipeFile.delete({ file_id: file.file_id });
-                File.delete({ id: file.file_id });
                 unlinkSync(file.path);
             });
 

@@ -75,11 +75,8 @@ module.exports = {
     async delete(req, res) {
         try {
             await Chef.delete({ id: req.body.id });
-
             const file = await File.findOne({ where: { id: req.body.file_id } });
-            await File.delete({ id: file.id });
             unlinkSync(file.path);
-
             return res.redirect('/admin/chefs');
         } catch (err) {
             console.error(err);

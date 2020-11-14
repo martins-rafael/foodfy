@@ -38,6 +38,7 @@ const loadService = {
         const recipes = await Recipe.userRecipes(this.filter);
         const recipesPromise = recipes.map(async recipe => {
             const files = await getImages(recipe.id);
+            recipe.files = files;
             recipe.image = files[0].src;
             return recipe;
         });

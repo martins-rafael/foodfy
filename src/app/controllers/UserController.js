@@ -1,13 +1,23 @@
 const crypto = require('crypto');
 const { hash } = require('bcryptjs');
+const { unlinkSync } = require('fs');
 
 const User = require('../models/User');
+const loadRecipeService = require('../services/LoadRecipeService');
 const mailer = require('../../lib/mailer');
 const { emailTemplate } = require('../../lib/utils');
 
 module.exports = {
     async list(req, res) {
         const users = await User.all();
+        const { success } = req.session;
+
+        if (success) {
+            res.render('users/list', { users, success });
+            req.session.success = '';
+            return
+        }
+
         return res.render('users/list', { users });
     },
     registerForm(req, res) {
@@ -71,7 +81,8 @@ module.exports = {
             user.is_admin = user.is_admin.toString();
 
             const { success } = req.session;
-            if(success) {
+            
+            if (success) {
                 res.render('users/edit', { user, success });
                 req.session.success = '';
                 return
@@ -107,7 +118,18 @@ module.exports = {
     },
     async delete(req, res) {
         try {
+            const recipes = await loadRecipeService.load('userRecipes', req.body.id);
+            const deletedFilesPromise = recipes.map(recipe => {
+                recipe.files.map(file => {
+                    unlinkSync(file.path);
+                });
+            });
+
+            await Promise.all(deletedFilesPromise);
             await User.delete({ id: req.body.id });
+
+            req.session.success = 'Usuário excluido com sucesso!';
+
             return res.redirect('/admin/users');
         } catch (err) {
             console.error(err);
