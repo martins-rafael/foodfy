@@ -4,20 +4,37 @@ const Recipe = require('../models/Recipe');
 const File = require('../models/File');
 const RecipeFile = require('../models/RecipeFile');
 const loadRecipeService = require('../services/LoadRecipeService');
+const { getParams } = require('../../lib/utils');
 
 module.exports = {
     async index(req, res) {
         try {
-            const recipes = await loadRecipeService.load('recipes');
-            return res.render('admin/recipes/index', { recipes });
+            const params = getParams(req.query, 6);
+            const recipes = await loadRecipeService.load('recipes', params);
+            const pagination = { page: params.page };
+
+            recipes.length == 0
+            ? pagination.total = 1
+            : pagination.total = Math.ceil(recipes[0].total / params.limit);
+            
+            return res.render('admin/recipes/index', { recipes, pagination });
         } catch (err) {
             console.error(err);
         }
     },
     async userRecipes(req, res) {
         try {
-            const recipes = await loadRecipeService.load('userRecipes', req.session.userId);
-            return res.render('admin/recipes/index', { recipes });
+            const params = getParams(req.query, 6);
+            params.id = req.session.userId;
+            
+            const recipes = await loadRecipeService.load('recipes', params);
+            const pagination = { page: params.page };
+
+            recipes.length == 0
+            ? pagination.total = 1
+            : pagination.total = Math.ceil(recipes[0].total / params.limit);
+            
+            return res.render('admin/recipes/index', { recipes, pagination });
         } catch (err) {
             console.error(err);
         }

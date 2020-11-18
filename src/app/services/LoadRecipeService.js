@@ -20,7 +20,7 @@ const loadService = {
             let recipes;
 
             this.filter
-            ? recipes = await Recipe.recipes(this.filter)
+            ? recipes = await Recipe.pagination(this.filter)
             : recipes = await Recipe.all();
 
             const recipesPromise = recipes.map(async recipe => {
@@ -44,7 +44,6 @@ const loadService = {
         });
         const allRecipes = Promise.all(recipesPromise);
         return allRecipes;
-
     }
 };
 

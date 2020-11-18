@@ -5,20 +5,27 @@ const { unlinkSync } = require('fs');
 const User = require('../models/User');
 const loadRecipeService = require('../services/LoadRecipeService');
 const mailer = require('../../lib/mailer');
-const { emailTemplate } = require('../../lib/utils');
+const { emailTemplate, getParams } = require('../../lib/utils');
 
 module.exports = {
     async list(req, res) {
-        const users = await User.all();
+        const params = getParams(req.query, 6);
+        const users = await User.pagination(params);
+        const pagination = { page: params.page };
+
+        users.length == 0
+        ? pagination.total = 1
+        : pagination.total = Math.ceil(users[0].total / params.limit);
+
         const { success } = req.session;
 
         if (success) {
-            res.render('users/list', { users, success });
+            res.render('users/list', { users, success, pagination });
             req.session.success = '';
             return
         }
 
-        return res.render('users/list', { users });
+        return res.render('users/list', { users, pagination });
     },
     registerForm(req, res) {
         return res.render('users/register');
@@ -121,7 +128,9 @@ module.exports = {
             const recipes = await loadRecipeService.load('userRecipes', req.body.id);
             const deletedFilesPromise = recipes.map(recipe => {
                 recipe.files.map(file => {
-                    unlinkSync(file.path);
+                    if (file.path != 'public/images/chef_placeholder.png' && file.path != 'public/images/recipe_placeholder.png') {
+                        unlinkSync(file.path);
+                    }
                 });
             });
 

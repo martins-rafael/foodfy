@@ -226,3 +226,23 @@ button.btn-delete:hover {
         visibility: hidden;
     }
 }
+
+/* =================
+==== PAGINATION ==== 
+================= */
+
+.container .pagination {
+    margin: 16px 0;
+    text-align: center;
+}
+
+.container .pagination a,
+.container .pagination span {
+    margin-right: 16px;
+    transition: .2s;
+}
+
+.container .pagination a:hover {
+    font-weight: bold;
+    border-bottom: 1px solid var(--color-default-black);
+}

@@ -1,5 +1,6 @@
 const loadRecipeService = require('../services/LoadRecipeService');
 const loadChefService = require('../services/LoadChefService');
+const { getParams } = require('../../lib/utils');
 
 module.exports = {
     async index(req, res) {
@@ -16,26 +17,16 @@ module.exports = {
     },
     async recipes(req, res) {
         try {
-            let { search, page, limit } = req.query;
-            page = page || 1;
-            limit = limit || 6;
-            let offset = limit * (page - 1);
-
-            const params = {
-                search,
-                limit,
-                offset,
-            };
-
+            const params = getParams(req.query, 6);
             const recipes = await loadRecipeService.load('recipes', params);
-            const pagination = { page };
+            const pagination = { page: params.page };
 
             recipes.length == 0
             ? pagination.total = 1
-            : pagination.total = Math.ceil(recipes[0].total / limit);
+            : pagination.total = Math.ceil(recipes[0].total / params.limit);
 
-            if (search) return res.render('main/search-result', { 
-                recipes, search, pagination 
+            if (params.search) return res.render('main/search-result', { 
+                recipes, search: params.search, pagination 
             });
 
             return res.render('main/recipes', { recipes, pagination });
@@ -54,8 +45,15 @@ module.exports = {
     },
     async chefs(req, res) {
         try {
-            const chefs = await loadChefService.load('chefs')
-            return res.render('main/chefs', { chefs });
+            const params = getParams(req.query, 12);
+            const chefs = await loadChefService.load('chefs', params);
+            const pagination = { page: params.page };
+
+            chefs.length == 0
+            ? pagination.total = 1
+            : pagination.total = Math.ceil(chefs[0].total / params.limit);
+            
+            return res.render('main/chefs', { chefs, pagination });
         } catch (err) {
             console.error(err);
         }

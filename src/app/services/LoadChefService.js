@@ -27,7 +27,7 @@ const loadService = {
     },
     async chefs() {
         try {
-            const chefs = await Chef.all();
+            const chefs = await Chef.pagination(this.filter)
             const chefsPromise = chefs.map(async chef => {
                 const file = await File.findOne({ where: { id: chef.file_id } });
                 chef.image = `${file.path.replace('public', '')}`;

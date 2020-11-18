@@ -3,12 +3,19 @@ const { unlinkSync } = require('fs');
 const Chef = require('../models/Chef');
 const File = require('../models/File');
 const loadChefService = require('../services/LoadChefService');
+const { getParams } = require('../../lib/utils');
 
 module.exports = {
     async index(req, res) {
         try {
-            const chefs = await loadChefService.load('chefs')
-            return res.render('admin/chefs/index', { chefs });
+            const params = getParams(req.query, 12);
+            const chefs = await loadChefService.load('chefs', params);
+            const pagination = { page: params.page };
+
+            chefs.length == 0
+            ? pagination.total = 1
+            : pagination.total = Math.ceil(chefs[0].total / params.limit);
+            return res.render('admin/chefs/index', { chefs, pagination });
         } catch (err) {
             console.error(err);
         }

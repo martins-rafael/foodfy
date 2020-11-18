@@ -9,5 +9,6 @@
 {% block content %}
     <section class="container">
         {{ section.chefs("total_recipes", chefs) }}
+        {% include "templates/includes/pagination.njk" %}
     </section>
 {% endblock %}

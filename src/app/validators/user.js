@@ -1,5 +1,5 @@
 const User = require('../models/User');
-const { checkAllFields } = require('../../lib/utils');
+const { checkAllFields, getParams } = require('../../lib/utils');
 
 async function show(req, res, next) {
     const { userId: id } = req.session;
@@ -73,10 +73,17 @@ async function update(req, res, next) {
 }
 
 async function exclude(req, res, next) {
-    const users = await User.all();
+    const params = getParams(req.query, 6);
+    const users = await User.pagination(params);
+    const pagination = { page: params.page };
+
+    users.length == 0
+    ? pagination.total = 1
+    : pagination.total = Math.ceil(users[0].total / params.limit);
 
     if (req.session.userId == req.body.id) return res.render('users/list', {
         users,
+        pagination,
         error: 'Desculpe, você não pode exluir sua própria conta!'
     });
 

@@ -14,16 +14,6 @@ module.exports = {
 
         return results.rows;
     },
-    async userRecipes(id) {
-        const results = await db.query(`
-        SELECT recipes.*, chefs.name AS chef_name
-        FROM recipes
-        LEFT JOIN chefs ON (recipes.chef_id = chefs.id)
-        WHERE user_id = $1
-        ORDER BY created_at DESC`, [id]);
-
-        return results.rows;
-    },
     async chefsSelectOptions() {
         const results = await db.query(`SELECT id, name FROM chefs`);
         return results.rows;
@@ -37,8 +27,8 @@ module.exports = {
 
         return results.rows[0];
     },
-    async recipes(params) {
-        let { search, limit, offset } = params;
+    async pagination(params) {
+        let { search, limit, offset, id } = params;
         let query = '',
             filterQuery = '',
             totalQuery = `(
@@ -47,9 +37,7 @@ module.exports = {
             orderBy = 'ORDER BY recipes.created_at DESC';
 
         if (search) {
-            filterQuery = `
-            WHERE recipes.title ILIKE '%${search}%'
-            `;
+            filterQuery = `WHERE recipes.title ILIKE '%${search}%'`;
 
             totalQuery = `(
                 SELECT count(*) FROM recipes
@@ -57,6 +45,14 @@ module.exports = {
             ) AS total`;
 
             orderBy = 'ORDER BY recipes.updated_at DESC'
+        }
+        if (id) {
+            filterQuery = `WHERE user_id = ${id}`;
+
+            totalQuery = `(
+                SELECT count(*) FROM recipes
+                ${filterQuery}
+            ) AS total`;
         }
 
         query = `
@@ -69,6 +65,16 @@ module.exports = {
         `;
 
         const results = await db.query(query, [limit, offset]);
+        return results.rows;
+    },
+    async userRecipes(id) {
+        const results = await db.query(`
+        SELECT recipes.*, chefs.name AS chef_name
+        FROM recipes
+        LEFT JOIN chefs ON (recipes.chef_id = chefs.id)
+        WHERE user_id = $1
+        ORDER BY created_at DESC`, [id]);
+
         return results.rows;
     },
     async files(id) {
