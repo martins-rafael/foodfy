@@ -1,3 +1,6 @@
+DROP DATABASE IF EXISTS foodfy;
+CREATE DATABASE foodfy;
+
 CREATE TABLE "recipes" (
   "id" SERIAL PRIMARY KEY,
   "chef_id" int,
@@ -43,10 +46,10 @@ CREATE TABLE "users" (
 );
 
 -- foreign key
-ALTER TABLE "recipes" ADD FOREIGN KEY ("user_id") REFERENCES "users" ("id");
+ALTER TABLE "recipes" ADD FOREIGN KEY ("user_id") REFERENCES "users" ("id") ON DELETE CASCADE;
+ALTER TABLE "recipe_files" ADD FOREIGN KEY ("recipe_id") REFERENCES "recipes" ("id") ON DELETE CASCADE;
+ALTER TABLE "recipe_files" ADD FOREIGN KEY ("file_id") REFERENCES "files" ("id") ON DELETE CASCADE;
 ALTER TABLE "chefs" ADD FOREIGN KEY ("file_id") REFERENCES "files" ("id");
-ALTER TABLE "recipe_files" ADD FOREIGN KEY ("recipe_id") REFERENCES "recipes" ("id");
-ALTER TABLE "recipe_files" ADD FOREIGN KEY ("file_id") REFERENCES "files" ("id");
 
 -- create procedure
 CREATE FUNCTION trigger_set_timestamp()
@@ -57,7 +60,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
--- auto update recipes
+-- auto updated_at recipes
 CREATE TRIGGER set_timestamp
 BEFORE UPDATE ON recipes
 FOR EACH ROW
@@ -85,3 +88,17 @@ WITH (OIDS=FALSE);
 ALTER TABLE "session"
 ADD CONSTRAINT "session_pkey"
 PRIMARY KEY ("sid") NOT DEFERRABLE INITIALLY IMMEDIATE;
+
+-- to run seeds
+DELETE FROM recipe_files;
+DELETE FROM recipes;
+DELETE FROM chefs;
+DELETE FROM users;
+DELETE FROM files;
+
+-- restart sequence auto-increment from tables ids
+ALTER SEQUENCE recipe_files_id_seq RESTART WITH 1;
+ALTER SEQUENCE recipes_id_seq RESTART WITH 1;
+ALTER SEQUENCE chefs_id_seq RESTART WITH 1;
+ALTER SEQUENCE users_id_seq RESTART WITH 1;
+ALTER SEQUENCE files_id_seq RESTART WITH 1;
