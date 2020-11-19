@@ -10,13 +10,12 @@
 {% endblock %}
 
 {% block content %}
-    <section class="container">
+    <section class="container list">
         <div class="recipe-container">
             {% for recipe in recipes %}
                 {% include "templates/includes/recipes/recipe-card.njk" %}
             {% endfor %}
         </div>
-         
-        {% include "templates/includes/pagination.njk" %}
     </section>
+    {% include "templates/includes/pagination.njk" %}
 {% endblock %}

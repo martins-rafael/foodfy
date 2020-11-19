@@ -41,10 +41,10 @@ section.banner {
 
 section.most-popular {
     margin-top: 40px;
+    margin-bottom: auto;
 }
 
 footer {
-    margin-top: auto;
     background-color: #eee;
 }
 
