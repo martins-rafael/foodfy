@@ -80,7 +80,11 @@ module.exports = {
 
             if (removed_files) {
                 const removedFileId = removed_files.replace(',', '');
+                const file = await File.findOne({ where: { id: removedFileId } });
                 await File.delete({ id: removedFileId });
+                if (file.path != 'public/images/chef_placeholder.png') {
+                    unlinkSync(file.path);
+                }
             }
 
             return res.redirect(`/admin/chefs/${id}`);

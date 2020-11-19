@@ -136,7 +136,9 @@ module.exports = {
                     
                     const file = await File.findOne({ where: { id } });
                     File.delete({ id });
-                    unlinkSync(file.path);
+                    if (file.path != 'public/images/recipe_placeholder.png') {
+                        unlinkSync(file.path);
+                    }
                 });
 
                 await Promise.all(removedFilesPromise);
