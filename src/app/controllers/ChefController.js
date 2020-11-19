@@ -15,6 +15,15 @@ module.exports = {
             chefs.length == 0
             ? pagination.total = 1
             : pagination.total = Math.ceil(chefs[0].total / params.limit);
+
+            const { success } = req.session;
+
+            if (success) {
+                res.render('admin/chefs/index', { chefs, pagination, success });
+                req.session.success = '';
+                return
+            }
+
             return res.render('admin/chefs/index', { chefs, pagination });
         } catch (err) {
             console.error(err);
@@ -83,7 +92,12 @@ module.exports = {
         try {
             await Chef.delete({ id: req.body.id });
             const file = await File.findOne({ where: { id: req.body.file_id } });
-            unlinkSync(file.path);
+            await File.delete({id: file.id});
+            if (file.path != 'public/images/chef_placeholder.png') {
+                unlinkSync(file.path);
+            }
+
+            req.session.success = 'Chef excluído com sucesso!';
             return res.redirect('/admin/chefs');
         } catch (err) {
             console.error(err);

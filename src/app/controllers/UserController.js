@@ -3,6 +3,7 @@ const { hash } = require('bcryptjs');
 const { unlinkSync } = require('fs');
 
 const User = require('../models/User');
+const File = require('../models/File');
 const loadRecipeService = require('../services/LoadRecipeService');
 const mailer = require('../../lib/mailer');
 const { emailTemplate, getParams } = require('../../lib/utils');
@@ -128,7 +129,8 @@ module.exports = {
             const recipes = await loadRecipeService.load('userRecipes', req.body.id);
             const deletedFilesPromise = recipes.map(recipe => {
                 recipe.files.map(file => {
-                    if (file.path != 'public/images/chef_placeholder.png' && file.path != 'public/images/recipe_placeholder.png') {
+                    File.delete({ id: file.file_id });
+                    if (file.path != 'public/images/recipe_placeholder.png') {
                         unlinkSync(file.path);
                     }
                 });
@@ -136,8 +138,7 @@ module.exports = {
 
             await Promise.all(deletedFilesPromise);
             await User.delete({ id: req.body.id });
-
-            req.session.success = 'Usuário excluido com sucesso!';
+            req.session.success = 'Usuário excluído com sucesso!';
 
             return res.redirect('/admin/users');
         } catch (err) {

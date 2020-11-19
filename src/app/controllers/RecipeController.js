@@ -16,6 +16,14 @@ module.exports = {
             recipes.length == 0
             ? pagination.total = 1
             : pagination.total = Math.ceil(recipes[0].total / params.limit);
+
+            const { success } = req.session;
+
+            if (success) {
+                res.render('admin/recipes/index', { recipes, pagination, success });
+                req.session.success = '';
+                return
+            }
             
             return res.render('admin/recipes/index', { recipes, pagination });
         } catch (err) {
@@ -151,11 +159,15 @@ module.exports = {
         try {
             const files = await Recipe.files(req.body.id);
             const deletedFilesPromise = files.map(file => {
-                unlinkSync(file.path);
+                File.delete({ id: file.file_id });
+                if (file.path != 'public/images/recipe_placeholder.png') {
+                    unlinkSync(file.path);
+                }
             });
 
             await Promise.all(deletedFilesPromise);
             await Recipe.delete({ id: req.body.id });
+            req.session.success = 'Receita excluída com sucesso!';
 
             return res.redirect('/admin');
         } catch (err) {
