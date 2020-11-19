@@ -25,7 +25,10 @@ const loadService = {
 
             const recipesPromise = recipes.map(async recipe => {
                 const files = await getImages(recipe.id);
-                recipe.image = files[0].src;
+
+                files.length != 0
+                ? recipe.image = files[0].src
+                : recipe.image = 'http://placehold.it/940x280?text=Receita sem foto';
                 return recipe;
             });
             const allRecipes = Promise.all(recipesPromise);
