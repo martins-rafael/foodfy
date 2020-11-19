@@ -1,0 +1,32 @@
+<script>
+    const addIngredient = document.querySelector('.add-ingredient');
+    const addStep = document.querySelector('.add-step');
+    const removeIngredient = document.querySelector('.remove-ingredient');
+    const removeStep = document.querySelector('.remove-step');
+
+    function addField(id, container) {
+        const fieldId = document.querySelector(id);
+        const fieldContainer = document.querySelectorAll(container);
+        const newField = fieldContainer[fieldContainer.length - 1].cloneNode(true);
+
+        if (newField.children[0].value == '') return false;
+
+        newField
+            .children[0]
+            .value = '';
+        fieldId.appendChild(newField);
+    }
+
+    function removerField(container) {
+        const fieldContainer = document.querySelectorAll(container);
+        const lastField = fieldContainer[fieldContainer.length -1];
+        if (fieldContainer.length - 1 == 0) return false;
+
+        lastField.remove();
+    }
+
+    addIngredient.addEventListener('click', () => addField('#ingredients', '.ingredients'));
+    addStep.addEventListener('click', () => addField('#step', '.steps'));
+    removeIngredient.addEventListener('click', () => removerField('.ingredients'));
+    removeStep.addEventListener('click', () => removerField('.steps'));
+</script>

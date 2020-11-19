@@ -138,6 +138,7 @@ form select {
     padding: 8px 24px;
     width: 100%;
     height: 40px;
+    background-color: #fff;
     border: 1px solid #ddd;
     border-radius: 4px;
 }

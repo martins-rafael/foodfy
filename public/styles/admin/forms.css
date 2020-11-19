@@ -103,10 +103,29 @@ form textarea {
     resize: none;
 }
 
-form .add {
-    display: block;
+form .options {
+    display: flex;
+}
+
+form .options a {
+    display: flex;
+    align-items: center;
     margin-top: 10px;
+    margin-right: 20px;
     font-weight: bold;
-    color: var(--color-purple);
     cursor: pointer;
+}
+
+form .options a i {
+    margin-right: 4px;
+}
+
+form a.add,
+form a.add i {
+    color: var(--color-purple);
+}
+
+form a.remove,
+form a.remove i {
+    color: var(--color-danger-red);
 }

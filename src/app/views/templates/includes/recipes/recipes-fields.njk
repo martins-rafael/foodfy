@@ -38,7 +38,6 @@
         <input
             type="text"
             name="title"
-        
             value="{{recipe.title}}"
         >
     </div>
@@ -68,7 +67,6 @@
             <input
                 type="text"
                 name="ingredients[]"
-            
                 value="{{ingredient}}"
             >
         </div>
@@ -77,13 +75,15 @@
             <input
                 type="text"
                 name="ingredients[]"
-            
             >
         </div>
     {% endfor %}
 </div>
 
-<a class="add-ingredient add">Adicionar novo ingrediente</a>
+<div class="options">
+    <a class="add-ingredient add"><i class="material-icons">add</i>Adicionar</a>
+    <a class="remove-ingredient remove"><i class="material-icons">delete</i>Remover</a>
+</div>
 
 <div class="item" id="step">
     <div>Modo de preparo</div>
@@ -92,7 +92,6 @@
             <input
                 type="text"
                 name="preparation[]"
-            
                 value="{{preparation}}"
             >
         </div>
@@ -101,13 +100,15 @@
             <input
                 type="text"
                 name="preparation[]"
-            
             >
         </div>
     {% endfor %}
 </div>
 
-<a class="add-step add">Adicionar novo passo</a>
+<div class="options">
+    <a class="add-step add"><i class="material-icons">add</i>Adicionar</a>
+    <a class="remove-step remove"><i class="material-icons">delete</i>Remover</a>
+</div>
 
 <div class="item">
     <div>informações adicionais</div>
