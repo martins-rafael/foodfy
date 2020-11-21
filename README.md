@@ -80,6 +80,7 @@ As seguintes tecnologias foram utilizadas no desenvolvimento do projeto:
 - [Nodemailer](https://nodemailer.com/about/)
 - [Express](https://expressjs.com/)
 - [Express Session](https://github.com/expressjs/session)
+- [Multer](https://github.com/expressjs/multer)
 - [PostgreSQL](https://www.postgresql.org/)
 - [BcryptJS](https://github.com/dcodeIO/bcrypt.js)
 - [Faker.js](https://github.com/Marak/Faker.js)
