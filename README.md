@@ -20,9 +20,9 @@
 
 [Sobre o Foodfy](#sobre-o-foodfy)
 
-[Funcionalidades](#funcionalidades-e-ferramentas)
+[Funcionalidades](#funcionalidades)
 
-[Tecnologias](#tecnologias)
+[Tecnologias e Ferramentas](#tecnologias-e-ferramentas)
 
 [Instalação e uso](#instalação-e-uso)
 
@@ -34,21 +34,21 @@
 
 O Foodfy é uma aplicação web completa de gerenciamento de receitas, desenvolvida durante o bootcamp [LaunchBase](https://rocketseat.com.br/launchbase) da [Rocketseat](https://rocketseat.com.br/).
 
-### Main
+<h3 align="center">Main</h3>
 <p align="center">
   <img src=".github/main.gif" alt="página principal">
 </p>
 
 <br>
 
-### Admin
+<h3 align="center">Admin</h3>
 <p align="center">
   <img src=".github/admin.gif" alt="página admin">
 </p>
 
 <br>
 
-### Email de boas-vindas
+<h3 align="center">Email de boas-vindas</h3>
 <p align="center">
   <img src=".github/welcome_email.png" alt="página admin">
 </p>
@@ -103,10 +103,12 @@ $ cd foodfy
 # Instale as dependências
 $ npm install
 
-# Crie o banco de dados e as tabelas utilizando os comandos inclusos no arquivo "foodfy.sql".
+# Crie o banco de dados e as tabelas utilizando os comandos
+# inclusos no arquivo "foodfy.sql".
     
 # Conexão com o banco de dados:
-# Abra e edite o arquivo "db.js" dentro da pasta "src/config" com o seu user e password do Postgres.
+# Abra e edite o arquivo "db.js" dentro da pasta "src/config"
+# com o seu user e password do Postgres.
 
 # Popule o banco de dados usando o aquivo "seed.js":
 $ node seed.js
@@ -121,7 +123,7 @@ $ npm start
 
 ### Acessando a Área Administrativa
 
-Utilizando um email da tabela users, acesse a tela de login e entre com o mesmo e com a senha "rocket" (senha padrão).
+Selecione um email da tabela users, acesse a tela de login e entre utilizando o mesmo com a senha "rocket" (senha padrão).
 
 Dica: usuários administradores possuem a badge "ADMIN" no header:
 <p align="center">
