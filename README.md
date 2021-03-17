@@ -5,13 +5,11 @@
 <p>
   <img src="https://img.shields.io/badge/made%20by-RAFAEL%20MARTINS-6558C3?style=flat-square">
   <img alt="GitHub language count" src="https://img.shields.io/github/languages/count/martins-rafael/foodfy?color=6558C3&style=flat-square">
+  <img alt="GitHub Top Language" src="https://img.shields.io/github/languages/top/martins-rafael/foodfy?color=6558C3&style=flat-square">
   <a href="https://opensource.org/licenses/MIT">
     <img alt="License" src="https://img.shields.io/badge/license-MIT-6558C3?style=flat-square">
   </a>
-  <a href="https://github.com/martins-rafael/foodfy/commits/master">
-    <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/martins-rafael/foodfy?color=6558C3&style=flat-square">
-  </a>
-    <img src="https://img.shields.io/badge/status-CONCLUÍDO-6558C3?style=flat-square">
+  
 </p>
 
 <img align="right" src=".github/chef.png?raw=true" height="240">
@@ -32,7 +30,7 @@
 
 ## Sobre o Foodfy
 
-O Foodfy é uma aplicação web completa de gerenciamento de receitas, desenvolvida durante o bootcamp [LaunchBase](https://rocketseat.com.br/launchbase) da [Rocketseat](https://rocketseat.com.br/).
+O Foodfy é uma aplicação web completa de gerenciamento de receitas, desenvolvida durante o bootcamp LaunchBase da [Rocketseat](https://rocketseat.com.br/), usada como critério de avaliação dos conhecimentos obtidos durante o treinamento.
 
 <h3 align="center">Main</h3>
 <p align="center">
