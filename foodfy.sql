@@ -1,6 +1,6 @@
 -- create database
-DROP DATABASE IF EXISTS foodfy;
-CREATE DATABASE foodfy;
+--DROP DATABASE IF EXISTS foodfy;
+--CREATE DATABASE foodfy;
 
 -- tables
 CREATE TABLE "recipes" (
