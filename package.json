@@ -17,7 +17,7 @@
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "connect-pg-simple": "^6.2.1",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "express-session": "^1.17.1",
     "faker": "^5.1.0",
     "method-override": "^3.0.0",
